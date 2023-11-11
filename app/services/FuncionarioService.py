@@ -1,6 +1,5 @@
 from dto import FuncionarioDTO
 from models import Funcionario
-from flask import jsonify
 
 class FuncionarioService:
     funcionarios =[]
@@ -14,13 +13,13 @@ class FuncionarioService:
     
     @staticmethod
     def consultarListaFuncionario():
-        return jsonify(FuncionarioService.funcionarios)
+        return FuncionarioService.funcionarios
     
     @staticmethod
     def consultarFuncionario(idFuncionario):
         for funcionario in FuncionarioService.funcionarios:
             if funcionario.idFuncionario ==idFuncionario:
-                return jsonify(funcionario)
+                return funcionario
         return None
     
     @staticmethod
