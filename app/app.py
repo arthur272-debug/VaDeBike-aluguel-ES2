@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-#exemplo aqui embaixo (mudar depois da pergunta)
+#mudar o código
 @app.route('/')
 
 def index():
