@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-#app = Flask(__name__)
+app = Flask(__name__)
 
 #mudar o código
 #@app.route('/')
