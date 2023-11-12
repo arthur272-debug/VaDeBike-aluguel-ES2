@@ -2,12 +2,24 @@ from dto import FuncionarioDTO
 from models import Funcionario
 
 class FuncionarioService:
-    funcionarios =[]
+    funcionarios =[
+
+        {
+            'id':1,
+            'senha':123,
+            'cpf': 123456,
+            'email': 'Tutu',
+            'documento': 'rg',
+            'funcao': 'lojista',
+            'idade':21,
+            'nome': 'Arthur'
+        }
+    ]
 
     @staticmethod
     def cadastrarFuncionario(funcionario_dto):
         idFuncionario = len(FuncionarioService.funcionarios)+1
-        funcionario =Funcionario(idFuncionario,funcionario_dto.senha,funcionario_dto.cpf,funcionario_dto.email,funcionario_dto.documento,funcionario_dto.funcao,funcionario_dto.idadefuncionario_dto.nome)
+        funcionario =Funcionario(idFuncionario,funcionario_dto.senha,funcionario_dto.cpf,funcionario_dto.email,funcionario_dto.documento,funcionario_dto.funcao,funcionario_dto.idade,funcionario_dto.nome)
         FuncionarioService.funcionarios.append(funcionario)
         return funcionario
     
