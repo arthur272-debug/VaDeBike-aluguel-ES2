@@ -5,24 +5,28 @@ from services import FuncionarioService
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizarCadastro(): # colocar a parte da exceção
+def realizarCadastro(): 
     funcionarioDados= request.json
-    funcionarioDto= FuncionarioDTO(funcionarioDados['senha'],funcionarioDados['cpf'], funcionarioDados['email'],funcionarioDados['documento'],funcionarioDados['funcao'],funcionarioDados['idade'],funcionarioDados['nome'])
+    funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"],funcionarioDados["id"])
     funcionario = FuncionarioService.FuncionarioService.cadastrarFuncionario(funcionarioDto)
-    return jsonify(funcionario.__dict__), 200
+    if funcionario is not None:
+       return "Dados Cadastrados com Sucesso!!",200
+    else:
+       return "Dados inválidos!!",422 
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
-def realizarListagenFuncionarios():# colocar a parte da exceção
-    funcionarios= FuncionarioService.FuncionarioService.funcionarios
-    funcionariosDto= [FuncionarioDTO.FuncionarioDto(funcionario.senha, funcionario.cpf, funcionario.email, funcionario.documento, funcionario.funcao,funcionario.idade,funcionario.nome) for funcionario in funcionarios]
-    return jsonify([funcionario.__dict__ for funcionario in funcionariosDto]),200
+def realizarListagenFuncionarios():
+    funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
+    if funcionarios is not None:
+       return jsonify(funcionarios), 200
+    else:
+         return "Lista de funcionários não encontrados",404
 
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['GET'])
 def realizarBuscaFuncionario(funcionarioId):# colocar a parte da exceção
     funcionario =FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
     if funcionario is not None:
-        funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionario.senha,funcionario.cpf, funcionario.email, funcionario.documento, funcionario.funcao,funcionario.idade,funcionario.nome)
-        return jsonify(funcionarioDto.__dict__),200
+        return jsonify(funcionario),200
     else:
         return "Funcionário não encontrado",404
     
