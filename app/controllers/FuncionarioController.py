@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from dto import FuncionarioDTO
-from services import FuncionarioService
+from dto import *
+from services import *
 
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
@@ -13,7 +13,7 @@ def realizarCadastro(): # colocar a parte da exceção
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
 def realizarListagenFuncionarios():# colocar a parte da exceção
-    funcionarios=FuncionarioService.consultarListaFuncionario()
+    funcionarios= FuncionarioService.consultarListaFuncionario()
     funcionariosDto= [FuncionarioDTO(funcionario.senha, funcionario.cpf, funcionario.email, funcionario.documento, funcionario.funcao,funcionario.idade,funcionario.nome) for funcionario in funcionarios]
     return jsonify([funcionario.__dict__ for funcionario in funcionariosDto]),200
 
