@@ -1,4 +1,3 @@
-from dto import FuncionarioDTO
 from models import Funcionario
 
 class FuncionarioService:

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from dto import *
-from services import *
+from dto import FuncionarioDTO
+from services import FuncionarioService
 
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
