@@ -1,6 +1,6 @@
 class Funcionario:
     
-    def __init__(self,senha:str,cpf:float,email:str,documento:str,funcao:str,idade:int,nome:str,id:int):
+    def __init__(self,senha:str,cpf:str,email:str,documento:str,funcao:str,idade:int,nome:str,id:int):
         self.senha= senha
         self.cpf= cpf
         self.email= email
