@@ -19,7 +19,7 @@ def realizarCadastro():
 @funcionarioBp.route('/funcionario',methods=['GET'])
 def realizarListagenFuncionarios(): 
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
-    if funcionarios is not None: 
+    if len(funcionarios) !=0 : 
        listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
        return jsonify(listagenFuncionarios), 200
     else:
@@ -34,7 +34,7 @@ def realizarBuscaFuncionario(funcionarioId):
     else:
         return "Funcionário não encontrado",404
     
-@funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT'])
+@funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) #mudar body do método
 def realizarAtualizacaoFuncionario(funcionarioId):
         funcionario = FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
         if funcionario is not None:
@@ -53,10 +53,8 @@ def realizarAtualizacaoFuncionario(funcionarioId):
         
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['DELETE'])
 def realizarExclusaoFuncionario(funcionarioId):
-     funcionario = FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
-
-     if funcionario is not None:
-          FuncionarioService.FuncionarioService.deletarFuncionario(funcionarioId)
+     funcionario = FuncionarioService.FuncionarioService.deletarFuncionario(funcionarioId)
+     if funcionario == True:
           return "Funcionário excluído com sucesso",200
      else:
           return "Funcionário não encontrado",404
