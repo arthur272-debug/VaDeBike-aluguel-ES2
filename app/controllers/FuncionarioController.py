@@ -34,20 +34,14 @@ def realizarBuscaFuncionario(funcionarioId):
     else:
         return "Funcionário não encontrado",404
     
-@funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) #mudar body do método
+@funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) 
 def realizarAtualizacaoFuncionario(funcionarioId):
-        funcionario = FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
+        funcionarioDados = request.json
+        funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"], 0)
+        funcionario = FuncionarioService.FuncionarioService.atualizarFuncionario(funcionarioId,funcionarioDto)
         if funcionario is not None:
-            funcionarioData = request.json
-            funcionario.senha= funcionarioData.get('senha',funcionario.senha)
-            funcionario.cpf= funcionarioData.get('cpf',funcionario.cpf)
-            funcionario.email=funcionarioData.get('email',funcionario.email)
-            funcionario.documento=funcionarioData.get('documento',funcionario.documento)
-            funcionario.funcao=funcionarioData.get('funcao',funcionario.funcao)
-            funcionario.idade=funcionarioData.get('idade',funcionario.idade)
-            funcionario.nome=funcionarioData.get('nome',funcionario.nome)
-            
-            return jsonify(funcionario.__dict__),200    
+            infomacoesFuncionario = {"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id}
+            return jsonify(infomacoesFuncionario),"Registro de funcionário atualizado!!",200
         else:
              return "Funcionário não encontrado", 404
         
