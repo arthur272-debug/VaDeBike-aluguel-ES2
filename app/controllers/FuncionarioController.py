@@ -4,52 +4,93 @@ from services import FuncionarioService
 
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
-#Verifcar as exceções em cada método com os casos de uso específicos
+#Verifcar as exceções em cada método com os casos de uso específicos - 15/11
 
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizarCadastro(): 
+def realizarCadastro(): #OK!!!
     funcionarioDados= request.json
+    senha = funcionarioDados["senha"]
+    confirmacaoSenha= funcionarioDados["confirmação_senha"]
+    
+    if (senha != confirmacaoSenha):
+        return "Dados inválidos",422 
+    
+    if(
+        not isinstance(funcionarioDados.get("senha"),str) or
+        not isinstance(funcionarioDados.get("cpf"),str) or
+        not isinstance(funcionarioDados.get("email"),str) or
+        not isinstance(funcionarioDados.get("documento"),str) or
+        not isinstance(funcionarioDados.get("funcao"),str) or
+        not isinstance(funcionarioDados.get("idade"),int) or
+        not isinstance(funcionarioDados.get("nome"),str)
+    ):
+        return "Dados inválidos",422  
+    
     funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"], 0)
     funcionario = FuncionarioService.FuncionarioService.cadastrarFuncionario(funcionarioDto)
     if funcionario is not None:
-       return "Dados Cadastrados com Sucesso!!",200
+       infomacoesFuncionario = {"senha": funcionario.senha, "confirmacaoSenha":confirmacaoSenha,"email": funcionario.email,"nome": funcionario.nome , "idade": funcionario.idade,"funcao":funcionario.funcao, "cpf": funcionario.cpf,"id": funcionario.id}
+       return jsonify(infomacoesFuncionario),200 
     else:
-       return "Dados inválidos!!",422 
+       return "Dados inválidos",422 
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
-def realizarListagenFuncionarios(): 
+def realizarListagenFuncionarios(): # OK!!!
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
     if len(funcionarios) !=0 : 
        listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
        return jsonify(listagenFuncionarios), 200
     else:
-         return "Lista de funcionários não encontrados",404
+        return "Não encontrado", 404
 
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['GET'])
-def realizarBuscaFuncionario(funcionarioId):
+def realizarBuscaFuncionario(funcionarioId): # OK!!!
+    if not isinstance(funcionarioId,int):
+        return "Dados Inválidos",422
+    
     funcionario =FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
     if funcionario is not None:
-        infomacoesFuncionario = {"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id}
+        infomacoesFuncionario = {"senha": funcionario.senha, "confirmacaoSenha":funcionario.senha,"email": funcionario.email,"nome": funcionario.nome , "idade": funcionario.idade,"funcao":funcionario.funcao, "cpf": funcionario.cpf,"id": funcionario.id}
         return jsonify(infomacoesFuncionario),200
     else:
-        return "Funcionário não encontrado",404
+        return "Não encontrado",404
     
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) 
-def realizarAtualizacaoFuncionario(funcionarioId):
+def realizarAtualizacaoFuncionario(funcionarioId): #OK!!!
         funcionarioDados = request.json
+        confirmacaoSenha= funcionarioDados["confirmação_senha"]
+        senha = funcionarioDados["senha"]
+
+        if (senha != confirmacaoSenha):
+           return "Dados inválidos",422 
+    
+        if(
+             not isinstance(funcionarioDados.get("senha"),str) or
+             not isinstance(funcionarioDados.get("cpf"),str) or
+             not isinstance(funcionarioDados.get("email"),str) or
+             not isinstance(funcionarioDados.get("documento"),str) or
+             not isinstance(funcionarioDados.get("funcao"),str) or
+             not isinstance(funcionarioDados.get("idade"),int) or
+             not isinstance(funcionarioDados.get("nome"),str)
+       ):
+          return "Dados inválidos",422 
+
         funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"], 0)
         funcionario = FuncionarioService.FuncionarioService.atualizarFuncionario(funcionarioId,funcionarioDto)
         if funcionario is not None:
-            infomacoesFuncionario = {"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id}
+            infomacoesFuncionario = {"senha": funcionario.senha, "confirmacaoSenha":funcionario.senha,"email": funcionario.email,"nome": funcionario.nome , "idade": funcionario.idade,"funcao":funcionario.funcao, "cpf": funcionario.cpf,"id": funcionario.id}
             return jsonify(infomacoesFuncionario),200
         else:
-             return "Funcionário não encontrado", 404
+             return "Não encontrado", 404
         
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['DELETE'])
-def realizarExclusaoFuncionario(funcionarioId):
+def realizarExclusaoFuncionario(funcionarioId): # OK!!
+     if not isinstance(funcionarioId,int):
+        return "Dados Inválidos",422
+     
      funcionario = FuncionarioService.FuncionarioService.deletarFuncionario(funcionarioId)
      if funcionario == True:
-          return "Funcionário excluído com sucesso",200
+          return "Dados removidos",200
      else:
-          return "Funcionário não encontrado",404
+          return "Não encontrado",404
 
