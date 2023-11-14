@@ -7,7 +7,7 @@ funcionarioBp = Blueprint('funcionarioBp',__name__)
 @funcionarioBp.route('/funcionario',methods=['POST'])
 def realizarCadastro(): #verificar exceção
     funcionarioDados= request.json
-    funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"],funcionarioDados["id"])
+    funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"], 0)
     funcionario = FuncionarioService.FuncionarioService.cadastrarFuncionario(funcionarioDto)
     if funcionario is not None:
        return "Dados Cadastrados com Sucesso!!",200
@@ -15,7 +15,7 @@ def realizarCadastro(): #verificar exceção
        return "Dados inválidos!!",422 
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
-def realizarListagenFuncionarios():
+def realizarListagenFuncionarios(): #verificar exceção
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
     if funcionarios is not None: 
        listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
