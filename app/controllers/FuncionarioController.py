@@ -4,8 +4,10 @@ from services import FuncionarioService
 
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
+#Verifcar as exceções em cada método com os casos de uso específicos
+
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizarCadastro(): #verificar exceção
+def realizarCadastro(): 
     funcionarioDados= request.json
     funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"], 0)
     funcionario = FuncionarioService.FuncionarioService.cadastrarFuncionario(funcionarioDto)
@@ -15,7 +17,7 @@ def realizarCadastro(): #verificar exceção
        return "Dados inválidos!!",422 
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
-def realizarListagenFuncionarios(): #verificar exceção
+def realizarListagenFuncionarios(): 
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
     if funcionarios is not None: 
        listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
@@ -24,15 +26,16 @@ def realizarListagenFuncionarios(): #verificar exceção
          return "Lista de funcionários não encontrados",404
 
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['GET'])
-def realizarBuscaFuncionario(funcionarioId):# colocar a parte da exceção
+def realizarBuscaFuncionario(funcionarioId):
     funcionario =FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
     if funcionario is not None:
-        return jsonify(funcionario),200
+        infomacoesFuncionario = {"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id}
+        return jsonify(infomacoesFuncionario),200
     else:
         return "Funcionário não encontrado",404
     
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT'])
-def realizarAtualizacaoFuncionario(funcionarioId):# colocar a parte da exceção
+def realizarAtualizacaoFuncionario(funcionarioId):
         funcionario = FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
         if funcionario is not None:
             funcionarioData = request.json
@@ -49,7 +52,7 @@ def realizarAtualizacaoFuncionario(funcionarioId):# colocar a parte da exceção
              return "Funcionário não encontrado", 404
         
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['DELETE'])
-def realizarExclusaoFuncionario(funcionarioId):# colocar a parte da exceção
+def realizarExclusaoFuncionario(funcionarioId):
      funcionario = FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
 
      if funcionario is not None:
