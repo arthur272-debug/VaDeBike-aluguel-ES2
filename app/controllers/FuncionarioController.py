@@ -5,7 +5,7 @@ from services import FuncionarioService
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizarCadastro(): 
+def realizarCadastro(): #verificar exceção
     funcionarioDados= request.json
     funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"],funcionarioDados["id"])
     funcionario = FuncionarioService.FuncionarioService.cadastrarFuncionario(funcionarioDto)
@@ -17,8 +17,9 @@ def realizarCadastro():
 @funcionarioBp.route('/funcionario',methods=['GET'])
 def realizarListagenFuncionarios():
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
-    if funcionarios is not None:
-       return jsonify(funcionarios), 200
+    if funcionarios is not None: 
+       listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
+       return jsonify(listagenFuncionarios), 200
     else:
          return "Lista de funcionários não encontrados",404
 
