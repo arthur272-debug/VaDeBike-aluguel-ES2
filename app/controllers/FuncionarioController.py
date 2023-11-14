@@ -41,7 +41,7 @@ def realizarAtualizacaoFuncionario(funcionarioId):
         funcionario = FuncionarioService.FuncionarioService.atualizarFuncionario(funcionarioId,funcionarioDto)
         if funcionario is not None:
             infomacoesFuncionario = {"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id}
-            return jsonify(infomacoesFuncionario),"Registro de funcionário atualizado!!",200
+            return jsonify(infomacoesFuncionario),200
         else:
              return "Funcionário não encontrado", 404
         
