@@ -25,7 +25,7 @@ class FuncionarioService:
     @staticmethod
     def atualizarFuncionario(idFuncionario,funcionario_dto):
         funcionario=FuncionarioService.consultarFuncionario(idFuncionario)
-        if funcionario:
+        if funcionario is not None:
             funcionario.senha = funcionario_dto.senha
             funcionario.cpf = funcionario_dto.cpf
             funcionario.email = funcionario_dto.email
