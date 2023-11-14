@@ -7,7 +7,7 @@ class Nacionalidade(Enum):
 
 class Ciclista:
 
-    def __init__(self,nome:str,nascimento:str,cpf:str,passaporte:object,nacionalidade,email:str,urlFotoDocumento:str,id:int):
+    def __init__(self,nome:str,nascimento:str,cpf:str,passaporte:object,nacionalidade,email:str,urlFotoDocumento:str,id:int,senha:str):
         self.nome= nome
         self.nascimento = nascimento
         self.cpf = cpf
@@ -15,3 +15,4 @@ class Ciclista:
         self.email = email
         self.urlFotoDocumento = urlFotoDocumento
         self.id = id
+        self.senha=senha
