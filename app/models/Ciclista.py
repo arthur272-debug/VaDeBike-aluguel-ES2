@@ -31,3 +31,4 @@ class Ciclista:
         self.urlFotoDocumento = urlFotoDocumento
         self.id = id
         self.senha=senha
+        self.cadastro = cadastro
