@@ -26,6 +26,7 @@ class Ciclista:
         self.nascimento = nascimento
         self.cpf = cpf
         self.passaporte = passaporte
+        self.nacionalidade = nacionalidade
         self.email = email
         self.urlFotoDocumento = urlFotoDocumento
         self.id = id
