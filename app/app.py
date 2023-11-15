@@ -1,9 +1,10 @@
 from flask import Flask
 from controllers.FuncionarioController import funcionarioBp
-#from controllers import 
+from controllers.CiclistaController import ciclistaBp 
 
 app = Flask(__name__)
 app.register_blueprint(funcionarioBp)
+app.register_blueprint(ciclistaBp)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', debug=True, port=5000)
