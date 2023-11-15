@@ -19,6 +19,12 @@ class CiclistaService:
                 return ciclista
         return None
     
+    def consultarCiclistaEmail(email):
+        for ciclista_email in CiclistaService.Ciclista: 
+            if ciclista_email.email==email:
+                return True
+        return False
+    
     @staticmethod
     def atualizarCiclista(idCiclista,ciclista_dto): # ver a parte da nacionalidade
         ciclista=CiclistaService.consultarCiclista(idCiclista)
