@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from dto import CiclistaDTO
 from services import CiclistaService
-from models import Nacionalidade
-from models import RespostaCadastro
+from models.Ciclista import Nacionalidade
+from models.Ciclista import RespostaCadastro
 from models import Ciclista
 
 ciclistaBp = Blueprint('ciclistaBp',__name__)
