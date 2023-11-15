@@ -4,10 +4,8 @@ from services import FuncionarioService
 
 funcionarioBp = Blueprint('funcionarioBp',__name__)
 
-#Verifcar as exceções em cada método com os casos de uso específicos - 15/11
-
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizarCadastro(): #OK!!!
+def realizarCadastro(): 
     funcionarioDados= request.json
     senha = funcionarioDados["senha"]
     confirmacaoSenha= funcionarioDados["confirmação_senha"]
@@ -35,7 +33,7 @@ def realizarCadastro(): #OK!!!
        return "Dados inválidos",422 
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
-def realizarListagenFuncionarios(): # OK!!!
+def realizarListagenFuncionarios(): 
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
     if len(funcionarios) !=0 : 
        listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
@@ -44,7 +42,7 @@ def realizarListagenFuncionarios(): # OK!!!
         return "Não encontrado", 404
 
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['GET'])
-def realizarBuscaFuncionario(funcionarioId): # OK!!!
+def realizarBuscaFuncionario(funcionarioId): 
     if not isinstance(funcionarioId,int):
         return "Dados Inválidos",422
     
@@ -56,7 +54,7 @@ def realizarBuscaFuncionario(funcionarioId): # OK!!!
         return "Não encontrado",404
     
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) 
-def realizarAtualizacaoFuncionario(funcionarioId): #OK!!!
+def realizarAtualizacaoFuncionario(funcionarioId): 
         funcionarioDados = request.json
         confirmacaoSenha= funcionarioDados["confirmação_senha"]
         senha = funcionarioDados["senha"]
@@ -84,7 +82,7 @@ def realizarAtualizacaoFuncionario(funcionarioId): #OK!!!
              return "Não encontrado", 404
         
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['DELETE'])
-def realizarExclusaoFuncionario(funcionarioId): # OK!!
+def realizarExclusaoFuncionario(funcionarioId): 
      if not isinstance(funcionarioId,int):
         return "Dados Inválidos",422
      
