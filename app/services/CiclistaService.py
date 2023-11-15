@@ -26,7 +26,7 @@ class CiclistaService:
         return False
     
     @staticmethod
-    def atualizarCiclista(idCiclista,ciclista_dto): # ver a parte da nacionalidade
+    def atualizarCiclista(idCiclista,ciclista_dto): 
         ciclista=CiclistaService.consultarCiclista(idCiclista)
         if ciclista is not None:
             ciclista.nome = ciclista_dto.nome
