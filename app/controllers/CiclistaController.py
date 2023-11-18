@@ -12,8 +12,8 @@ ciclistaBp = Blueprint('ciclistaBp',__name__)
 
 @ciclistaBp.route('/ciclista',methods=['POST'])
 def realizar_cadastro():
-   ciclistaDados = request.json
-   nacionalidade = ciclistaDados["nacionalidade"]
+   ciclista_dados = request.json
+   nacionalidade = ciclista_dados["nacionalidade"]
    nacionalidade_lower = nacionalidade.lower()
    if(nacionalidade_lower == "brasileira"):
       nacionalidade_valida = Nacionalidade.BRASILEIRA
@@ -22,9 +22,9 @@ def realizar_cadastro():
    else:
       return invalido,422 
         
-   passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
-   ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO)
-   ciclista = CiclistaService.CiclistaService.cadastrarCiclista(ciclistaDto)
+   passaporte = Ciclista.Passaporte(ciclista_dados["numero"],ciclista_dados["validade"],ciclista_dados["pais"])
+   ciclista_dto = CiclistaDTO.CiclistaDto(ciclista_dados["nome"],ciclista_dados["nascimento"],ciclista_dados["cpf"],passaporte,nacionalidade_valida,ciclista_dados["email"],ciclista_dados["urlFotoDocumento"],0,ciclista_dados["senha"],RespostaCadastro.CONFIRMACAO)
+   ciclista = CiclistaService.CiclistaService.cadastrarCiclista(ciclista_dto)
    informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
    return jsonify(informacoesCiclista), 201
   
