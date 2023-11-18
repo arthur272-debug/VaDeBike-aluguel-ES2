@@ -5,47 +5,34 @@ from models.Ciclista import Nacionalidade
 from models.Ciclista import RespostaCadastro
 from models import Ciclista
 
+invalido = "Dados Inválidos"
+nao_econtrado= "Não encontrado"
+
 ciclistaBp = Blueprint('ciclistaBp',__name__)
 
 @ciclistaBp.route('/ciclista',methods=['POST'])
-def realizarCadastro():
+def realizar_cadastro():
    ciclistaDados = request.json
    nacionalidade = ciclistaDados["nacionalidade"]
    nacionalidade_lower = nacionalidade.lower()
-   print(nacionalidade_lower)
    if(nacionalidade_lower == "brasileira"):
       nacionalidade_valida = Nacionalidade.BRASILEIRA
    elif(nacionalidade_lower == "estrangeira"):
        nacionalidade_valida = Nacionalidade.ESTRANGEIRA
    else:
-      return "Dados inválidos",422 
-   
-   if(
-        not isinstance(ciclistaDados.get("numero"),str) or
-        not isinstance(ciclistaDados.get("validade"),str) or
-        not isinstance(ciclistaDados.get("pais"),str) or
-        not isinstance(ciclistaDados.get("senha"),str) or
-        not isinstance(ciclistaDados.get("nascimento"),str) or
-        not isinstance(ciclistaDados.get("nome"),str) or
-        not isinstance(ciclistaDados.get("cpf"),str) or
-        not isinstance(ciclistaDados.get("email"),str) or
-        not isinstance(ciclistaDados.get("urlFotoDocumento"),str)
-    ):
-        return "Dados inválidos",422 
-     
+      return invalido,422 
+        
    passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
    ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO)
    ciclista = CiclistaService.CiclistaService.cadastrarCiclista(ciclistaDto)
-   if ciclista is not None:
-      informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
-      return jsonify(informacoesCiclista), 201
-   else:
-      return "Requisição mal formada",404
+   informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
+   return jsonify(informacoesCiclista), 201
+  
    
 @ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['GET'])
-def realizarBuscaCiclista(ciclistaId):
+def realizar_buscaCiclista(ciclistaId):
    if not isinstance(ciclistaId,int):
-        return "Dados Inválidos",422
+        return invalido,422
    
    ciclista= CiclistaService.CiclistaService.consultarCiclista(ciclistaId)
    if ciclista is not None:
@@ -55,7 +42,7 @@ def realizarBuscaCiclista(ciclistaId):
        return "Requisição mal formada",404
 
 @ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['PUT'])
-def realizarAtualizacaoCiclista(ciclistaId):
+def realizar_atualizacaoCiclista(ciclistaId):
     ciclistaDados = request.json
     nacionalidade = ciclistaDados["nacionalidade"]
     nacionalidade_lower = nacionalidade.lower()
@@ -65,20 +52,7 @@ def realizarAtualizacaoCiclista(ciclistaId):
     elif(nacionalidade_lower == "estrangeira"):
        nacionalidade_valida = Nacionalidade.ESTRANGEIRA
     else:
-      return "Dados inválidos",422 
-   
-    if(
-        not isinstance(ciclistaDados.get("numero"),str) or
-        not isinstance(ciclistaDados.get("validade"),str) or
-        not isinstance(ciclistaDados.get("pais"),str) or
-        not isinstance(ciclistaDados.get("senha"),str) or
-        not isinstance(ciclistaDados.get("nascimento"),str) or
-        not isinstance(ciclistaDados.get("nome"),str) or
-        not isinstance(ciclistaDados.get("cpf"),str) or
-        not isinstance(ciclistaDados.get("email"),str) or
-        not isinstance(ciclistaDados.get("urlFotoDocumento"),str)
-    ):
-        return "Dados inválidos",422 
+      return invalido,422 
     
     passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
     ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO)
@@ -87,28 +61,28 @@ def realizarAtualizacaoCiclista(ciclistaId):
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
     else:
-      return "Não encontrado",404
+      return nao_econtrado,404
     
 @ciclistaBp.route('/ciclista/<int:ciclistaId>/ativar',methods=['POST'])
-def realizarAtivacaoCiclista(ciclistaId):
+def realizar_ativacaoCiclista(ciclistaId):
    if not isinstance(ciclistaId,int):
-        return "Dados Inválidos",422
+        return invalido,422
    ciclista = CiclistaService.CiclistaService.consultarCiclista(ciclistaId)
    if ciclista is None:
-      return "Não encontrado",404
+      return nao_econtrado,404
    
    if (ciclista.cadastro == RespostaCadastro.CONFIRMACAO):
       ciclista.cadastro = RespostaCadastro.ATIVO
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
    else:
-      return "Dados inválidos",422
+      return invalido,422
    
 @ciclistaBp.route('/ciclista/existeEmail/<email>',methods=['GET'])
-def realizarVerificaoEmail(email):
+def realizar_verificaoEmail(email):
    
    if not isinstance(email,str):
-        return "Dados Inválidos",422
+        return invalido,422
    
    if not email.strip():
       return "Email não enviado como parâmetro", 400
