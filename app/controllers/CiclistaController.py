@@ -42,7 +42,7 @@ def realizar_busca_ciclista(ciclistaId):
        return "Requisição mal formada",404
 
 @ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['PUT'])
-def realizar_atualizacao_ciclista(ciclistaId):
+def realizar_atualizacao_ciclista(ciclista_id):
     ciclistaDados = request.json
     nacionalidade = ciclistaDados["nacionalidade"]
     nacionalidade_lower = nacionalidade.lower()
@@ -56,7 +56,7 @@ def realizar_atualizacao_ciclista(ciclistaId):
     
     passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
     ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO)
-    ciclista = CiclistaService.CiclistaService.atualizarCiclista(ciclistaId,ciclistaDto)
+    ciclista = CiclistaService.CiclistaService.atualizarCiclista(ciclista_id,ciclistaDto)
     if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
