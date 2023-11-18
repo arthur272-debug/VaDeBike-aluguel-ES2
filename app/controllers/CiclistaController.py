@@ -30,11 +30,11 @@ def realizar_cadastro():
   
    
 @ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['GET'])
-def realizar_busca_ciclista(ciclistaId):
-   if not isinstance(ciclistaId,int):
+def realizar_busca_ciclista(ciclista_id):
+   if not isinstance(ciclista_id,int):
         return invalido,422
    
-   ciclista= CiclistaService.CiclistaService.consultarCiclista(ciclistaId)
+   ciclista= CiclistaService.CiclistaService.consultarCiclista(ciclista_id)
    if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
