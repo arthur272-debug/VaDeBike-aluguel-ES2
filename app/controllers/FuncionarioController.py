@@ -31,11 +31,11 @@ def realizar_listagen_funcionarios():
         return nao_econtrado, 404
 
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['GET'])
-def realizar_busca_funcionario(funcionarioId): 
-    if not isinstance(funcionarioId,int):
+def realizar_busca_funcionario(funcionario_id): 
+    if not isinstance(funcionario_id,int):
         return invalido,422
     
-    funcionario =FuncionarioService.FuncionarioService.consultarFuncionario(funcionarioId)
+    funcionario =FuncionarioService.FuncionarioService.consultarFuncionario(funcionario_id)
     if funcionario is not None:
         infomacoesFuncionario = {"senha": funcionario.senha, "confirmacaoSenha":funcionario.senha,"email": funcionario.email,"nome": funcionario.nome , "idade": funcionario.idade,"funcao":funcionario.funcao, "cpf": funcionario.cpf,"id": funcionario.id}
         return jsonify(infomacoesFuncionario),200
@@ -57,11 +57,11 @@ def realizar_atualizacao_funcionario(funcionario_id):
         return jsonify(infomacoesFuncionario),200
         
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['DELETE'])
-def realizar_exclusao_funcionario(funcionarioId): 
-     if not isinstance(funcionarioId,int):
+def realizar_exclusao_funcionario(funcionario_id): 
+     if not isinstance(funcionario_id,int):
         return invalido,422
      
-     funcionario = FuncionarioService.FuncionarioService.deletarFuncionario(funcionarioId)
+     funcionario = FuncionarioService.FuncionarioService.deletarFuncionario(funcionario_id)
      if funcionario == True:
           return "Dados removidos",200
      else:
