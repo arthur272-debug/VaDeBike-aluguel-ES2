@@ -8,7 +8,7 @@ invalido = "Dados Inválidos"
 nao_econtrado= "Não encontrado"
 
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizar_cadastro(): #Ok!
+def realizar_cadastro():
     funcionarioDados= request.json
     senha = funcionarioDados["senha"]
     confirmacaoSenha= funcionarioDados["confirmação_senha"]
