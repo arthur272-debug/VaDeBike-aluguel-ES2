@@ -43,7 +43,7 @@ def realizar_busca_funcionario(funcionarioId):
         return nao_econtrado,404
     
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) 
-def realizar_atualizacao_funcionario(funcionarioId): 
+def realizar_atualizacao_funcionario(funcionario_id): 
         funcionarioDados = request.json
         confirmacaoSenha= funcionarioDados["confirmação_senha"]
         senha = funcionarioDados["senha"]
@@ -52,7 +52,7 @@ def realizar_atualizacao_funcionario(funcionarioId):
          return invalido,422 
 
         funcionarioDto= FuncionarioDTO.FuncionarioDto(funcionarioDados["senha"],funcionarioDados["cpf"], funcionarioDados["email"],funcionarioDados["documento"],funcionarioDados["funcao"],funcionarioDados["idade"],funcionarioDados["nome"], 0)
-        funcionario = FuncionarioService.FuncionarioService.atualizarFuncionario(funcionarioId,funcionarioDto)
+        funcionario = FuncionarioService.FuncionarioService.atualizarFuncionario(funcionario_id,funcionarioDto)
         infomacoesFuncionario = {"senha": funcionario.senha, "confirmacaoSenha":funcionario.senha,"email": funcionario.email,"nome": funcionario.nome , "idade": funcionario.idade,"funcao":funcionario.funcao, "cpf": funcionario.cpf,"id": funcionario.id}
         return jsonify(infomacoesFuncionario),200
         
