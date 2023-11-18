@@ -12,7 +12,7 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
 
     def test_atualizarFuncionario_existente(self):
         
-        funcionario2 = FuncionarioDTO.FuncionarioDto("12345678","12345678910111213","tutu.andre@gmail.com","cpf","Analista de T.I.",22,"Tutu",2)
+        funcionario2 = FuncionarioDTO.FuncionarioDto("12345678","12345678910111213","tutu.andreee@gmail.com","cpf","Sênior de T.I.",22,"Tutu",2)
         FuncionarioService.FuncionarioService.funcionarios.append(funcionario2)
 
         
@@ -23,14 +23,14 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
         self.assertEqual(resultado.nome, "Tutu")
         self.assertEqual(resultado.idade, 22)
         self.assertEqual(resultado.cpf, "12345678910111213")
-        self.assertEqual(resultado.funcao, "Analista de T.I.")
+        self.assertEqual(resultado.funcao, "Consultor de T.I.")
         self.assertEqual(resultado.documento, "cpf")
         self.assertEqual(resultado.email, "tutu.andre@gmail.com")
         self.assertEqual(resultado.senha, "12345678")
 
     def test_atualizarFuncionario_inexistente(self):
         
-         funcionario3 = FuncionarioDTO.FuncionarioDto("12345678","12345678910111213","tutu.andre@gmail.com","cpf","Analista de T.I.",21,"Arthur",2)
+         funcionario3 = FuncionarioDTO.FuncionarioDto("12345678","12345678910111213","tutu.andre345@gmail.com","cpf","Consultor de T.I.",21,"Arthur",2)
          FuncionarioService.FuncionarioService.funcionarios.append(funcionario3)
        
          resultado = FuncionarioService.FuncionarioService.atualizarFuncionario(999, funcionario3)
