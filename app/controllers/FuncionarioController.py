@@ -91,4 +91,3 @@ def realizarExclusaoFuncionario(funcionarioId):
           return "Dados removidos",200
      else:
           return "Não encontrado",404
-
