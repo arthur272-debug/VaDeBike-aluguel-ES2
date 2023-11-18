@@ -19,7 +19,7 @@ class CiclistaService:
                 return ciclista
         return None
     
-    def consultar_ciclistaEmail(email):
+    def consultar_ciclista_email(email):
         for ciclista_email in CiclistaService.Ciclista: 
             if ciclista_email.email==email:
                 return True

@@ -30,7 +30,7 @@ def realizar_cadastro():
   
    
 @ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['GET'])
-def realizar_buscaCiclista(ciclistaId):
+def realizar_busca_ciclista(ciclistaId):
    if not isinstance(ciclistaId,int):
         return invalido,422
    
@@ -42,7 +42,7 @@ def realizar_buscaCiclista(ciclistaId):
        return "Requisição mal formada",404
 
 @ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['PUT'])
-def realizar_atualizacaoCiclista(ciclistaId):
+def realizar_atualizacao_ciclista(ciclistaId):
     ciclistaDados = request.json
     nacionalidade = ciclistaDados["nacionalidade"]
     nacionalidade_lower = nacionalidade.lower()
@@ -64,10 +64,10 @@ def realizar_atualizacaoCiclista(ciclistaId):
       return nao_econtrado,404
     
 @ciclistaBp.route('/ciclista/<int:ciclistaId>/ativar',methods=['POST'])
-def realizar_ativacaoCiclista(ciclistaId):
-   if not isinstance(ciclistaId,int):
+def realizar_ativacao_ciclista(ciclista_id):
+   if not isinstance(ciclista_id,int):
         return invalido,422
-   ciclista = CiclistaService.CiclistaService.consultarCiclista(ciclistaId)
+   ciclista = CiclistaService.CiclistaService.consultarCiclista(ciclista_id)
    if ciclista is None:
       return nao_econtrado,404
    
@@ -79,7 +79,7 @@ def realizar_ativacaoCiclista(ciclistaId):
       return invalido,422
    
 @ciclistaBp.route('/ciclista/existeEmail/<email>',methods=['GET'])
-def realizar_verificaoEmail(email):
+def realizar_verificao_email(email):
    
    if not isinstance(email,str):
         return invalido,422
