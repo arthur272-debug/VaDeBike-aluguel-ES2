@@ -4,7 +4,7 @@ class FuncionarioService:
     funcionarios =[]
 
     @staticmethod
-    def cadastrar_Funcionario(funcionario_dto):
+    def cadastrar_funcionario(funcionario_dto):
         idFuncionario = len(FuncionarioService.funcionarios)+1
         funcionario_dto.id=idFuncionario
         funcionario =Funcionario.Funcionario(funcionario_dto.senha,funcionario_dto.cpf,funcionario_dto.email,funcionario_dto.documento,funcionario_dto.funcao,funcionario_dto.idade,funcionario_dto.nome,funcionario_dto.id)
@@ -12,18 +12,18 @@ class FuncionarioService:
         return funcionario
     
     @staticmethod
-    def consultar_Lista_Funcionario():
+    def consultar_lista_funcionario():
         return FuncionarioService.funcionarios
     
     @staticmethod
-    def consultar_Funcionario(idFuncionario):
+    def consultar_funcionario(idFuncionario):
         for funcionario in FuncionarioService.funcionarios:
             if funcionario.id ==idFuncionario:
                 return funcionario
         return None
     
     @staticmethod
-    def atualizar_Funcionario(idFuncionario,funcionario_dto):
+    def atualizar_funcionario(idFuncionario,funcionario_dto):
         funcionario=FuncionarioService.consultarFuncionario(idFuncionario)
         if funcionario is not None:
             funcionario.senha = funcionario_dto.senha
@@ -37,7 +37,7 @@ class FuncionarioService:
         return None
 
     @staticmethod
-    def deletar_Funcionario(idFuncionario):
+    def deletar_funcionario(idFuncionario):
          funcionario=FuncionarioService.consultarFuncionario(idFuncionario)
          if funcionario is not None:
              FuncionarioService.funcionarios.remove(funcionario)

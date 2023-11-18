@@ -8,7 +8,7 @@ invalido = "Dados Inválidos"
 nao_econtrado= "Não encontrado"
 
 @funcionarioBp.route('/funcionario',methods=['POST'])
-def realizar_Cadastro(): #Ok!
+def realizar_cadastro(): #Ok!
     funcionarioDados= request.json
     senha = funcionarioDados["senha"]
     confirmacaoSenha= funcionarioDados["confirmação_senha"]
@@ -22,7 +22,7 @@ def realizar_Cadastro(): #Ok!
     return jsonify(infomacoesFuncionario),200 
 
 @funcionarioBp.route('/funcionario',methods=['GET'])
-def realizar_Listagen_Funcionarios(): 
+def realizar_listagen_funcionarios(): 
     funcionarios= FuncionarioService.FuncionarioService.consultarListaFuncionario()
     if len(funcionarios) !=0 : 
        listagenFuncionarios =[{"senha": funcionario.senha, "cpf": funcionario.cpf, "email": funcionario.email, "documento": funcionario.documento,"funcao":funcionario.funcao, "idade": funcionario.idade, "nome": funcionario.nome,"id": funcionario.id} for funcionario in funcionarios]
@@ -31,7 +31,7 @@ def realizar_Listagen_Funcionarios():
         return nao_econtrado, 404
 
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['GET'])
-def realizar_Busca_Funcionario(funcionarioId): 
+def realizar_busca_funcionario(funcionarioId): 
     if not isinstance(funcionarioId,int):
         return invalido,422
     
@@ -43,7 +43,7 @@ def realizar_Busca_Funcionario(funcionarioId):
         return nao_econtrado,404
     
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['PUT']) 
-def realizar_Atualizacao_Funcionario(funcionarioId): 
+def realizar_atualizacao_funcionario(funcionarioId): 
         funcionarioDados = request.json
         confirmacaoSenha= funcionarioDados["confirmação_senha"]
         senha = funcionarioDados["senha"]
@@ -57,7 +57,7 @@ def realizar_Atualizacao_Funcionario(funcionarioId):
         return jsonify(infomacoesFuncionario),200
         
 @funcionarioBp.route('/funcionario/<int:funcionarioId>',methods=['DELETE'])
-def realizar_Exclusao_Funcionario(funcionarioId): 
+def realizar_exclusao_funcionario(funcionarioId): 
      if not isinstance(funcionarioId,int):
         return invalido,422
      
