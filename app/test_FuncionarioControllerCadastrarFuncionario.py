@@ -1,7 +1,6 @@
 import unittest
 from flask import Flask, jsonify
 from flask.testing import FlaskClient
-from services import FuncionarioService
 from controllers.FuncionarioController import funcionarioBp
 
 class TestFuncionarioRoute(unittest.TestCase):
