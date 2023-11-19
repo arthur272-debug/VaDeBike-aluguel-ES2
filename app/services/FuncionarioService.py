@@ -24,7 +24,7 @@ class FuncionarioService:
     
     @staticmethod
     def atualizar_funcionario(idFuncionario,funcionario_dto):
-        funcionario=FuncionarioService.consultarFuncionario(idFuncionario)
+        funcionario=FuncionarioService.consultar_funcionario(idFuncionario)
         if funcionario is not None:
             funcionario.senha = funcionario_dto.senha
             funcionario.cpf = funcionario_dto.cpf
@@ -38,7 +38,7 @@ class FuncionarioService:
 
     @staticmethod
     def deletar_funcionario(idFuncionario):
-         funcionario=FuncionarioService.consultarFuncionario(idFuncionario)
+         funcionario=FuncionarioService.consultar_funcionario(idFuncionario)
          if funcionario is not None:
              FuncionarioService.funcionarios.remove(funcionario)
              return True
