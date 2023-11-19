@@ -24,24 +24,24 @@ def realizar_cadastro():
         
    passaporte = Ciclista.Passaporte(ciclista_dados["numero"],ciclista_dados["validade"],ciclista_dados["pais"])
    ciclista_dto = CiclistaDTO.CiclistaDto(ciclista_dados["nome"],ciclista_dados["nascimento"],ciclista_dados["cpf"],passaporte,nacionalidade_valida,ciclista_dados["email"],ciclista_dados["urlFotoDocumento"],0,ciclista_dados["senha"],RespostaCadastro.CONFIRMACAO)
-   ciclista = CiclistaService.CiclistaService.cadastrarCiclista(ciclista_dto)
+   ciclista = CiclistaService.CiclistaService.cadastrar_ciclista(ciclista_dto)
    informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
    return jsonify(informacoesCiclista), 201
   
    
-@ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['GET'])
+@ciclistaBp.route('/ciclista/<int:ciclista_id>',methods=['GET'])
 def realizar_busca_ciclista(ciclista_id):
    if not isinstance(ciclista_id,int):
         return invalido,422
    
-   ciclista= CiclistaService.CiclistaService.consultarCiclista(ciclista_id)
+   ciclista= CiclistaService.CiclistaService.consulta_ciclista(ciclista_id)
    if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
    else:
        return "Requisição mal formada",404
 
-@ciclistaBp.route('/ciclista/<int:ciclistaId>',methods=['PUT'])
+@ciclistaBp.route('/ciclista/<int:ciclista_id>',methods=['PUT'])
 def realizar_atualizacao_ciclista(ciclista_id):
     ciclistaDados = request.json
     nacionalidade = ciclistaDados["nacionalidade"]
@@ -56,18 +56,18 @@ def realizar_atualizacao_ciclista(ciclista_id):
     
     passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
     ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO)
-    ciclista = CiclistaService.CiclistaService.atualizarCiclista(ciclista_id,ciclistaDto)
+    ciclista = CiclistaService.CiclistaService.atualizar_ciclista(ciclista_id,ciclistaDto)
     if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
     else:
       return nao_econtrado,404
     
-@ciclistaBp.route('/ciclista/<int:ciclistaId>/ativar',methods=['POST'])
+@ciclistaBp.route('/ciclista/<int:ciclista_id>/ativar',methods=['POST'])
 def realizar_ativacao_ciclista(ciclista_id):
    if not isinstance(ciclista_id,int):
         return invalido,422
-   ciclista = CiclistaService.CiclistaService.consultarCiclista(ciclista_id)
+   ciclista = CiclistaService.CiclistaService.consulta_ciclista(ciclista_id)
    if ciclista is None:
       return nao_econtrado,404
    
@@ -87,7 +87,7 @@ def realizar_verificao_email(email):
    if not email.strip():
       return "Email não enviado como parâmetro", 400
    
-   ExisteEmail = CiclistaService.CiclistaService.consultarCiclistaEmail(email)
+   ExisteEmail = CiclistaService.CiclistaService.consultar_ciclista_email(email)
 
    if ExisteEmail:
       return "True", 200
