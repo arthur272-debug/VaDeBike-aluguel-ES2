@@ -34,7 +34,7 @@ def realizar_busca_ciclista(ciclista_id):
    if not isinstance(ciclista_id,int):
         return invalido,422
    
-   ciclista= CiclistaService.CiclistaService.consulta_ciclista(ciclista_id)
+   ciclista= CiclistaService.CiclistaService.consultar_ciclista(ciclista_id)
    if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
@@ -67,7 +67,7 @@ def realizar_atualizacao_ciclista(ciclista_id):
 def realizar_ativacao_ciclista(ciclista_id):
    if not isinstance(ciclista_id,int):
         return invalido,422
-   ciclista = CiclistaService.CiclistaService.consulta_ciclista(ciclista_id)
+   ciclista = CiclistaService.CiclistaService.consultar_ciclista(ciclista_id)
    if ciclista is None:
       return nao_econtrado,404
    

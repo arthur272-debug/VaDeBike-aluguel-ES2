@@ -13,7 +13,7 @@ class CiclistaService:
         return ciclista
     
     @staticmethod
-    def consulta_ciclista(ciclista_id):
+    def consultar_ciclista(ciclista_id):
         for ciclista in CiclistaService.Ciclista: 
             if ciclista.id==ciclista_id:
                 return ciclista
@@ -27,7 +27,7 @@ class CiclistaService:
     
     @staticmethod
     def atualizar_ciclista(ciclista_id,ciclista_dto): 
-        ciclista=CiclistaService.consulta_ciclista(ciclista_id)
+        ciclista=CiclistaService.consultar_ciclista(ciclista_id)
         if ciclista is not None:
             ciclista.nome = ciclista_dto.nome
             ciclista.nascimento= ciclista_dto.nascimento
