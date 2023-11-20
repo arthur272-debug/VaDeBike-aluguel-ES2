@@ -1,43 +1,39 @@
 import unittest
-from services import CiclistaService 
-from dto import CiclistaDTO
+from services import CiclistaService
+from unittest.mock import MagicMock
 
 class TestCiclistaServiceAtualizar(unittest.TestCase):
 
     def setUp(self):
-        
-        ciclista = CiclistaDTO.CiclistaDto("Arthur","27/03/2002","122323",None,"Brasileiro","arthur.andre@gmail.com","httpssssss",1,"12356",None)
-        CiclistaService.CiclistaService.Ciclista.append(ciclista)
-        
+        # Configuração inicial para os testes
+        ciclista_mock1 = MagicMock(nome="Arthur",nascimento="27/03/2002",cpf="122323",passaporte=None,nacionalidade="Brasileiro",email="arthur.andre@gmail.com",urlFotoDocumento="httpssssss",id=1,senha="12356",cadastro=None)
+        CiclistaService.CiclistaService.Ciclista.append(ciclista_mock1)
 
     def test_atualizarCiclista_existente(self):
-        
-        ciclista2 = CiclistaDTO.CiclistaDto("Tutu","23/02/2002","122345623",None,"Estrangeiro","Tutu@gmail.com","httpssss",2,"12356789",None)
-        CiclistaService.CiclistaService.Ciclista.append(ciclista2)
+        # Chame a função atualizarCiclista para um ID existente
+        ciclista_mock2 = MagicMock(nome="Tutu",nascimento="23/02/2002",cpf="122345623",passaporte=None,nacionalidade="Estrangeiro",email="Tutu@gmail.com",urlFotoDocumento="httpssss",id=2,senha="12356789",cadastro=None)
+        resultado = CiclistaService.CiclistaService.atualizar_ciclista(1, ciclista_mock2)
 
-        
-        resultado = CiclistaService.CiclistaService.atualizarCiclista(1, ciclista2)
-
-        
+        # Verifique se o resultado não é None
         self.assertIsNotNone(resultado)
 
+        # Verifique se os atributos foram atualizados corretamente
         self.assertEqual(resultado.nome, "Tutu")
         self.assertEqual(resultado.nascimento, "23/02/2002")
         self.assertEqual(resultado.cpf, "122345623")
         self.assertEqual(resultado.passaporte, None)
         self.assertEqual(resultado.nacionalidade, "Estrangeiro")
         self.assertEqual(resultado.email, "Tutu@gmail.com")
-        self.assertEqual(resultado.urlFotoDocumento,"httpssss")
+        self.assertEqual(resultado.urlFotoDocumento, "httpssss")
         self.assertEqual(resultado.senha, "12356789")
 
-    def test_atualizarCiclista_inexistente(self):
-        
-         ciclista3 = CiclistaDTO.CiclistaDto("Tutu","23/05/2002","12234",None,"Estrangeiro","Tutu2345@gmail.com","httpssdgsg",3,"1235678910",None)
-         CiclistaService.CiclistaService.Ciclista.append(ciclista3)
-       
-         resultado = CiclistaService.CiclistaService.atualizarCiclista(999, ciclista3)
+    def test_atualizar_ciclista_inexistente(self):
+        # Chame a função atualizarCiclista para um ID que não existe
+        ciclista_mock3 = MagicMock(nome="Tutu",nascimento="23/05/2002",cpf="12234",passaporte=None,nacionalidade="Estrangeiro",email="Tutu2345@gmail.com",urlFotoDocumento="httpssdgsg",id=3,senha="1235678910",cadastro=None)
+        resultado = CiclistaService.CiclistaService.atualizar_ciclista(999, ciclista_mock3)
 
-         self.assertIsNone(resultado)
+        # Verifique se o resultado é None
+        self.assertIsNone(resultado)
 
 if __name__ == '__main__':
     unittest.main()

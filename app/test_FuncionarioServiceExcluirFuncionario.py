@@ -1,17 +1,18 @@
 import unittest
 from services import FuncionarioService
-from dto import FuncionarioDTO
+from unittest.mock import MagicMock
 
 class TestFuncionarioServiceDeletar(unittest.TestCase):
 
     def setUp(self):
         # Configuração inicial para os testes
-        funcionario = FuncionarioDTO.FuncionarioDto("1234567800","12345678910","arthur.andre@gmail.com","cpf","Analista de T.I.",21,"Arthur",1)
-        FuncionarioService.FuncionarioService.funcionarios.append(funcionario)
+
+        funcionario_mock = MagicMock(senha="1234", cpf="123456789", email="arthur.andre@gmail.com", documento="cpf",funcao="analista de segurança", idade=21, nome="Nome1", id=1)
+        FuncionarioService.FuncionarioService.funcionarios.append(funcionario_mock)
 
     def test_deletarFuncionario_existente(self):
         # Chame a função deletarFuncionario para um ID existente
-        resultado = FuncionarioService.FuncionarioService.deletarFuncionario(1)
+        resultado = FuncionarioService.FuncionarioService.deletar_funcionario(1)
 
         # Verifique se o resultado é True (o funcionário foi removido)
         self.assertTrue(resultado)
@@ -21,7 +22,7 @@ class TestFuncionarioServiceDeletar(unittest.TestCase):
 
     def test_deletarFuncionario_inexistente(self):
         # Chame a função deletarFuncionario para um ID que não existe
-        resultado = FuncionarioService.FuncionarioService.deletarFuncionario(999)
+        resultado = FuncionarioService.FuncionarioService.deletar_funcionario(999)
 
         # Verifique se o resultado é False (o funcionário não foi removido)
         self.assertFalse(resultado)

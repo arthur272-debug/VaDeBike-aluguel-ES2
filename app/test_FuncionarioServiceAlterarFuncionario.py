@@ -1,41 +1,44 @@
 import unittest
-from services import FuncionarioService 
-from dto import FuncionarioDTO
+from services import FuncionarioService
+from unittest.mock import MagicMock
 
 class TestCiclistaServiceAtualizar(unittest.TestCase):
 
     def setUp(self):
+        # Configuração inicial para os testes
         
-        funcionario = FuncionarioDTO.FuncionarioDto("1234567800","12345678910","arthur.andre@gmail.com","cpf","Analista de T.I.",21,"Arthur",1)
-        FuncionarioService.FuncionarioService.funcionarios.append(funcionario)
-        
+        funcionario_mock1 = MagicMock(cpf="1234567800",documento="12345678910",email="arthur.andre@gmail.com",funcao="Analista de T.I.",idade=21,nome="Arthur",id=1,senha="senha123")
+        FuncionarioService.FuncionarioService.funcionarios.append(funcionario_mock1)
 
     def test_atualizarFuncionario_existente(self):
-        
-        funcionario2 = FuncionarioDTO.FuncionarioDto("12345678","12345678910111213","tutu.andreee@gmail.com","cpf","Sênior de T.I.",22,"Tutu",2)
-        FuncionarioService.FuncionarioService.funcionarios.append(funcionario2)
+        # Chame a função atualizarFuncionario para um ID existente
+        funcionario_mock2 = MagicMock(cpf="12345678",documento="cpf",email="tutu.andreee@gmail.com",funcao="Sênior de T.I.",idade=22,nome="Tutu",id=2,senha="nova_senha")
+        FuncionarioService.FuncionarioService.funcionarios.append(funcionario_mock2)
 
-        
-        resultado = FuncionarioService.FuncionarioService.atualizarFuncionario(1, funcionario2)
-        
+        resultado = FuncionarioService.FuncionarioService.atualizar_funcionario(1, funcionario_mock2)
+
+        # Verifique se o resultado não é None
         self.assertIsNotNone(resultado)
 
+        # Verifique se os atributos do funcionário correspondem ao esperado
         self.assertEqual(resultado.nome, "Tutu")
         self.assertEqual(resultado.idade, 22)
-        self.assertEqual(resultado.cpf, "12345678910111213")
-        self.assertEqual(resultado.funcao, "Consultor de T.I.")
+        self.assertEqual(resultado.cpf, "12345678")
         self.assertEqual(resultado.documento, "cpf")
-        self.assertEqual(resultado.email, "tutu.andre@gmail.com")
-        self.assertEqual(resultado.senha, "12345678")
+        self.assertEqual(resultado.funcao, "Sênior de T.I.")
+        self.assertEqual(resultado.documento, "cpf")
+        self.assertEqual(resultado.email, "tutu.andreee@gmail.com")
+        self.assertEqual(resultado.senha, "nova_senha")
 
     def test_atualizarFuncionario_inexistente(self):
-        
-         funcionario3 = FuncionarioDTO.FuncionarioDto("12345678","12345678910111213","tutu.andre345@gmail.com","cpf","Consultor de T.I.",21,"Arthur",2)
-         FuncionarioService.FuncionarioService.funcionarios.append(funcionario3)
-       
-         resultado = FuncionarioService.FuncionarioService.atualizarFuncionario(999, funcionario3)
+        # Chame a função atualizarFuncionario para um ID que não existe
+        funcionario_mock3 = MagicMock(cpf="12345678",documento="12345678910111213",email="tutu.andre345@gmail.com",funcao="Consultor de T.I.",idade=21,nome="Arthur",id=2,senha="outra_senha")
+        FuncionarioService.FuncionarioService.funcionarios.append(funcionario_mock3)
 
-         self.assertIsNone(resultado)
+        resultado = FuncionarioService.FuncionarioService.atualizar_funcionario(999, funcionario_mock3)
+
+        # Verifique se o resultado é None
+        self.assertIsNone(resultado)
 
 if __name__ == '__main__':
     unittest.main()
