@@ -31,8 +31,6 @@ def realizar_cadastro():
    
 @ciclistaBp.route('/ciclista/<int:ciclista_id>',methods=['GET'])
 def realizar_busca_ciclista(ciclista_id):
-   if not isinstance(ciclista_id,int):
-        return invalido,422
    
    ciclista= CiclistaService.CiclistaService.consultar_ciclista(ciclista_id)
    if ciclista is not None:
