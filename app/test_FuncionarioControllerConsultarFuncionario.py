@@ -1,5 +1,5 @@
 import unittest
-from flask import Flask, jsonify
+from flask import Flask
 from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
 from unittest.mock import MagicMock
