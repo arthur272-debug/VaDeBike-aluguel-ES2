@@ -63,8 +63,7 @@ def realizar_atualizacao_ciclista(ciclista_id):
     
 @ciclistaBp.route('/ciclista/<int:ciclista_id>/ativar',methods=['POST'])
 def realizar_ativacao_ciclista(ciclista_id):
-   if not isinstance(ciclista_id,int):
-        return invalido,422
+
    ciclista = CiclistaService.CiclistaService.consultar_ciclista(ciclista_id)
    if ciclista is None:
       return nao_econtrado,404
