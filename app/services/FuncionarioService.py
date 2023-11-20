@@ -13,7 +13,8 @@ class FuncionarioService:
     
     @staticmethod
     def consultar_lista_funcionario():
-        return FuncionarioService.funcionarios
+        listaDto = FuncionarioService.funcionarios
+        return listaDto
     
     @staticmethod
     def consultar_funcionario(idFuncionario):
