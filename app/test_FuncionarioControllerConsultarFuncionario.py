@@ -2,7 +2,7 @@ import unittest
 from flask import Flask, jsonify
 from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock
 
 class TestFuncionarioRouteBusca(unittest.TestCase):
 
