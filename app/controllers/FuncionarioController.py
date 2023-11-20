@@ -32,8 +32,6 @@ def realizar_listagen_funcionarios():
 
 @funcionarioBp.route('/funcionario/<int:funcionario_id>',methods=['GET'])
 def realizar_busca_funcionario(funcionario_id): 
-    if not isinstance(funcionario_id,int):
-        return invalido,422
     
     funcionario =FuncionarioService.FuncionarioService.consultar_funcionario(funcionario_id)
     if funcionario is not None:
