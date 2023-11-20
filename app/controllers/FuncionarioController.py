@@ -32,7 +32,6 @@ def realizar_listagen_funcionarios():
 
 @funcionarioBp.route('/funcionario/<int:funcionario_id>',methods=['GET'])
 def realizar_busca_funcionario(funcionario_id): 
-    
     funcionario =FuncionarioService.FuncionarioService.consultar_funcionario(funcionario_id)
     if funcionario is not None:
         infomacoesFuncionario = {"senha": funcionario.senha, "confirmacaoSenha":funcionario.senha,"email": funcionario.email,"nome": funcionario.nome , "idade": funcionario.idade,"funcao":funcionario.funcao, "cpf": funcionario.cpf,"id": funcionario.id}
@@ -59,8 +58,6 @@ def realizar_atualizacao_funcionario(funcionario_id):
         
 @funcionarioBp.route('/funcionario/<int:funcionario_id>',methods=['DELETE'])
 def realizar_exclusao_funcionario(funcionario_id): 
-     if not isinstance(funcionario_id,int):
-        return invalido,422
      
      funcionario = FuncionarioService.FuncionarioService.deletar_funcionario(funcionario_id)
      if funcionario == True:
