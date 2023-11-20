@@ -63,7 +63,7 @@ def realizar_atualizacao_ciclista(ciclista_id):
     
 @ciclistaBp.route('/ciclista/<int:ciclista_id>/ativar',methods=['POST'])
 def realizar_ativacao_ciclista(ciclista_id):
-
+   
    ciclista = CiclistaService.CiclistaService.consultar_ciclista(ciclista_id)
    if ciclista is None:
       return nao_econtrado,404
@@ -78,10 +78,7 @@ def realizar_ativacao_ciclista(ciclista_id):
 @ciclistaBp.route('/ciclista/existeEmail/<email>',methods=['GET'])
 def realizar_verificao_email(email):
    
-   if not isinstance(email,str):
-        return invalido,422
-   
-   if not email.strip():
+   if not '@' in email:
       return "Email não enviado como parâmetro", 400
    
    ExisteEmail = CiclistaService.CiclistaService.consultar_ciclista_email(email)
