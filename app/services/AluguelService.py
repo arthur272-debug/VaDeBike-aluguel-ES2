@@ -1,4 +1,5 @@
 from services import CiclistaService
+from models import Bicicleta_fake # será substituido
 
 lista_ciclista = CiclistaService.CiclistaService.Ciclista
 
@@ -6,7 +7,21 @@ alugueis_historico = []
 
 class AluguelService:
 
-# usado também para ver se o ciclista tem bicicleta alugada ou não
+
+    @staticmethod
+    def verificar_bicicleta_alugada(id_ciclista): # integração aqui (pega a bicicleta aqui)
+        for ciclista in lista_ciclista:
+            if ciclista.id == id_ciclista:
+                aluguel = ciclista.aluguel
+                break
+        
+        bicicleta = Bicicleta_fake.bicicleta("boa","3235","2022",1,"normal") # pega a informação de outro microsserviço
+        if (bicicleta.numero==aluguel.bicicleta):
+            return bicicleta
+        else:
+            return None
+
+
     @staticmethod
     def verificar_ciclista_aluguel(id_ciclista): 
         ciclista = None
@@ -14,8 +29,9 @@ class AluguelService:
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
                 aluguel = ciclista.aluguel
-                break
-        return aluguel
+                return aluguel
+                
+            return False
     
     @staticmethod
     def alugar_bicicleta(id_ciclista,aluguel_dto): #integração aqui
