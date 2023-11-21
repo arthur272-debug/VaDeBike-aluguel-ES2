@@ -22,7 +22,7 @@ class CartaoService:
     
     @staticmethod
     def consultar_cartao(id_ciclista):
-        ciclista= None
+        cartao= None
         for ciclista in ciclista_lista: 
             if ciclista.id==id_ciclista:
                cartao = ciclista.cartao
