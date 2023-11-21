@@ -28,15 +28,18 @@ class AluguelService:
         
        if aluguel is None:
           return aluguel
+       
+       # pega as informações dos outros microsserviços
        aluguel.ciclista = id_ciclista
        aluguel.trancaInicio = aluguel_dto.trancaInicio
        aluguel.bicicleta = len(alugueis_historico)+1 # muda -- fake
-       aluguel.horaInicio = aluguel_dto.horaInicio
+       aluguel.horaInicio = 0
+       aluguel.cobranca = 0  
       
        return aluguel
     
     @staticmethod #verificar aqui
-    def devolver_bicicleta(id_ciclista,id_bicicleta,id_tranca): #integração aqui
+    def devolver_bicicleta(id_ciclista,id_tranca): #integração aqui
        ciclista = None
        id_tranca = 0 # será alterado pela integração
        aluguel = None
@@ -51,8 +54,8 @@ class AluguelService:
        # pega as informações dos outros microsserviços
        aluguel.trancaFim =0 
        aluguel.horaFim = 0
-       aluguel.cobranca = 0
-       
+       aluguel.cobranca = 0+ 30
+
        # informações do aluguel e pagamento serão repassadas para seus microsserviços responsáveis
        alugueis_historico.append(aluguel)
        ciclista.aluguel = None
