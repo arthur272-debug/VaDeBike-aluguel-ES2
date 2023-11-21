@@ -5,7 +5,7 @@ from services import CartaoService
 cartaoBp = Blueprint('cartaoBp',__name__)
 invalido = "Dados Inválidos"
 
-@cartaoBp.route('/cartaoDeCredito/<int:id_Ciclista>',methods=['PUT'])
+@cartaoBp.route('/cartaoDeCredito/<int:id_ciclista>',methods=['PUT'])
 def realizar_atulizacao(id_ciclista):
     cartao_dados = request.json
     if not '-' in cartao_dados["validade"]:
