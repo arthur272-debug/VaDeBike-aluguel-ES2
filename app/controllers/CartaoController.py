@@ -5,7 +5,7 @@ from services import CartaoService
 cartaoBp = Blueprint('cartaoBp',__name__)
 invalido = "Dados Inválidos"
 
-@cartaoBp.route('/cartaoDeCredito/<int: idCiclista>',methods=['PUT'])
+@cartaoBp.route('/cartaoDeCredito/<int:id_Ciclista>',methods=['PUT'])
 def realizar_atulizacao(id_ciclista):
     cartao_dados = request.json
     if not '-' in cartao_dados["validade"]:
@@ -18,7 +18,7 @@ def realizar_atulizacao(id_ciclista):
     else:
         return "Não encontrado",404
     
-@cartaoBp.route('/cartaoDeCredito/<int: id_Ciclista>',methods=['GET'])
+@cartaoBp.route('/cartaoDeCredito/<int:id_Ciclista>',methods=['GET'])
 def realizar_consultaCartao(id_ciclista):
     cartao= CartaoService.CartaoService.consultar_cartao(id_ciclista)
     if cartao is not None:
