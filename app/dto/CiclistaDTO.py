@@ -1,6 +1,6 @@
 class CiclistaDto:
 
-    def __init__(self,nome:str,nascimento:str,cpf:str,passaporte:object,nacionalidade,email:str,urlFotoDocumento:str,id:int,senha:str,cadastro):
+    def __init__(self,nome:str,nascimento:str,cpf:str,passaporte:object,nacionalidade,email:str,urlFotoDocumento:str,id:int,senha:str,cadastro,cartao:object,aluguel:object):
         self.nome= nome
         self.nascimento = nascimento
         self.cpf = cpf
@@ -11,3 +11,5 @@ class CiclistaDto:
         self.id = id
         self.senha = senha
         self.cadastro = cadastro
+        self.cartao = cartao
+        self.aluguel = aluguel
