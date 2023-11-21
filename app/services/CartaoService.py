@@ -7,7 +7,7 @@ class CartaoService:
     @staticmethod
     def alterar_cartao(id_ciclista,cartao_dto):
         ciclista= None
-        
+        cartao = None
         for ciclista in ciclista_lista: 
             if ciclista.id==id_ciclista:
                cartao = ciclista.cartao
