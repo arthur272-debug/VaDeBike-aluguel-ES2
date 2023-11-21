@@ -10,11 +10,15 @@ class AluguelService:
 
     @staticmethod
     def verificar_bicicleta_alugada(id_ciclista): # integração aqui (pega a bicicleta aqui)
+        aluguel = None
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
                 aluguel = ciclista.aluguel
                 break
-        
+
+        if aluguel is None:
+            return False
+
         bicicleta = Bicicleta_fake.bicicleta("boa","3235","2022",1,"normal") # pega a informação de outro microsserviço
         if (bicicleta.numero==aluguel.bicicleta):
             return bicicleta
@@ -24,7 +28,6 @@ class AluguelService:
 
     @staticmethod
     def verificar_ciclista_aluguel(id_ciclista): 
-        ciclista = None
         aluguel = None
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
@@ -34,11 +37,10 @@ class AluguelService:
             return False
     
     @staticmethod
-    def alugar_bicicleta(id_ciclista,aluguel_dto): #integração aqui
-       ciclista = None
+    def alugar_bicicleta(aluguel_dto): #integração aqui
        aluguel = None
        for ciclista in lista_ciclista:
-           if ciclista.id == id_ciclista:
+           if ciclista.id == aluguel_dto.ciclista:
               aluguel = ciclista.aluguel
               break
         
@@ -46,7 +48,6 @@ class AluguelService:
           return aluguel
        
        # pega as informações dos outros microsserviços
-       aluguel.ciclista = id_ciclista
        aluguel.trancaInicio = aluguel_dto.trancaInicio
        aluguel.bicicleta = len(alugueis_historico)+1 # muda -- fake
        aluguel.horaInicio = 0
@@ -56,7 +57,7 @@ class AluguelService:
     
     @staticmethod #verificar aqui
     def devolver_bicicleta(id_ciclista,id_tranca): #integração aqui
-       ciclista = None
+       #ciclista = None
        id_tranca = 0 # será alterado pela integração
        aluguel = None
        for ciclista in lista_ciclista:
@@ -72,7 +73,7 @@ class AluguelService:
        aluguel.horaFim = 0
        aluguel.cobranca = 0+ 30
 
-       # informações do aluguel e pagamento serão repassadas para seus microsserviços responsáveis
+       # informações do aluguel e pagamento serão repassadas para seus microsserviços respectivos
        alugueis_historico.append(aluguel)
        ciclista.aluguel = None
        return aluguel
