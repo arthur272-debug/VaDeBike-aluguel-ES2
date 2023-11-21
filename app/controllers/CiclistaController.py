@@ -24,10 +24,10 @@ def realizar_cadastro():
    else:
       return invalido,422 
    
-   cartao = CartaoDTO.CartaoDto(ciclista_dados["nomeTitular"],ciclista_dados["numero_cartao"],ciclista_dados["validade_cartao"],ciclista_dados["cvv"]) 
    passaporte = Ciclista.Passaporte(ciclista_dados["numero"],ciclista_dados["validade"],ciclista_dados["pais"])
    ciclista_dto = CiclistaDTO.CiclistaDto(ciclista_dados["nome"],ciclista_dados["nascimento"],ciclista_dados["cpf"],passaporte,nacionalidade_valida,ciclista_dados["email"],ciclista_dados["urlFotoDocumento"],0,ciclista_dados["senha"],RespostaCadastro.CONFIRMACAO,cartao,None)
    ciclista = CiclistaService.CiclistaService.cadastrar_ciclista(ciclista_dto)
+   cartao = CartaoDTO.CartaoDto(ciclista_dados["nomeTitular"],ciclista_dados["numero_cartao"],ciclista_dados["validade_cartao"],ciclista_dados["cvv"],ciclista_dados["id"]) 
    informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
    return jsonify(informacoesCiclista), 201
   
