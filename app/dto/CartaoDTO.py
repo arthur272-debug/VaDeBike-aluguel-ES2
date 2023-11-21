@@ -1,3 +1,4 @@
+
 class CartaoDto:
 
     def __init__(self,nomeTitular:str,numero:str,validade:str,cvv:str,id:int):
@@ -5,4 +6,4 @@ class CartaoDto:
         self.numero=numero
         self.validade=validade
         self.cvv=cvv
-        self.id=id+1
+        self.id=id
