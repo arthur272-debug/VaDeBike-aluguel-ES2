@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from dto import CiclistaDTO
+from dto import CartaoDTO
+from dto import AluguelDTO
 from services import CiclistaService
 from models.Ciclista import Nacionalidade
 from models.Ciclista import RespostaCadastro
@@ -21,9 +23,10 @@ def realizar_cadastro():
        nacionalidade_valida = Nacionalidade.ESTRANGEIRA
    else:
       return invalido,422 
-        
+   
+   cartao = CartaoDTO.CartaoDto(ciclista_dados["nomeTitular"],ciclista_dados["numero_cartao"],ciclista_dados["validade_cartao"],ciclista_dados["cvv"]) 
    passaporte = Ciclista.Passaporte(ciclista_dados["numero"],ciclista_dados["validade"],ciclista_dados["pais"])
-   ciclista_dto = CiclistaDTO.CiclistaDto(ciclista_dados["nome"],ciclista_dados["nascimento"],ciclista_dados["cpf"],passaporte,nacionalidade_valida,ciclista_dados["email"],ciclista_dados["urlFotoDocumento"],0,ciclista_dados["senha"],RespostaCadastro.CONFIRMACAO)
+   ciclista_dto = CiclistaDTO.CiclistaDto(ciclista_dados["nome"],ciclista_dados["nascimento"],ciclista_dados["cpf"],passaporte,nacionalidade_valida,ciclista_dados["email"],ciclista_dados["urlFotoDocumento"],0,ciclista_dados["senha"],RespostaCadastro.CONFIRMACAO,cartao,None)
    ciclista = CiclistaService.CiclistaService.cadastrar_ciclista(ciclista_dto)
    informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
    return jsonify(informacoesCiclista), 201
@@ -53,7 +56,7 @@ def realizar_atualizacao_ciclista(ciclista_id):
       return invalido,422 
     
     passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
-    ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO)
+    ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO,None,None)
     ciclista = CiclistaService.CiclistaService.atualizar_ciclista(ciclista_id,ciclistaDto)
     if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}

@@ -8,7 +8,7 @@ class CiclistaService:
     def cadastrar_ciclista(ciclista_dto):
         idCiclista = len(CiclistaService.Ciclista)+1
         ciclista_dto.id=idCiclista
-        ciclista =Ciclista.Ciclista(ciclista_dto.nome,ciclista_dto.nascimento,ciclista_dto.cpf,ciclista_dto.passaporte,ciclista_dto.nacionalidade,ciclista_dto.email,ciclista_dto.urlFotoDocumento,ciclista_dto.id,ciclista_dto.senha,ciclista_dto.cadastro)
+        ciclista =Ciclista.Ciclista(ciclista_dto.nome,ciclista_dto.nascimento,ciclista_dto.cpf,ciclista_dto.passaporte,ciclista_dto.nacionalidade,ciclista_dto.email,ciclista_dto.urlFotoDocumento,ciclista_dto.id,ciclista_dto.senha,ciclista_dto.cadastro,ciclista_dto.cartao,ciclista_dto.aluguel)
         CiclistaService.Ciclista.append(ciclista)
         return ciclista
     
