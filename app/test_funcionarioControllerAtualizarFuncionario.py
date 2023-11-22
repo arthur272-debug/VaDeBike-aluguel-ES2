@@ -26,7 +26,7 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
             "senha": "senha123",
             "confirmação_senha": "senha123",
             "cpf": "12345678900",
-            "email": "teste@example.com",
+            "email": "teste@.com",
             "documento": "documento123",
             "funcao": "Desenvolvedor",
             "idade": 25,
@@ -62,7 +62,7 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
             "documento": "documento123",
             "funcao": "Desenvolvedor",
             "idade": 25,
-            "nome": "Nome Teste"
+            "nome": "Tutu"
         }
 
         # Chame a rota /funcionario/<funcionario_id> com o método PUT e dados válidos
@@ -82,7 +82,7 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
             "documento": "documento123",
             "funcao": "Desenvolvedor",
             "idade": "25",  
-            "nome": "Nome Teste"
+            "nome": "Arthur"
         }
 
         # Chame a rota /funcionario/<funcionario_id> com o método PUT e dados inválidos
