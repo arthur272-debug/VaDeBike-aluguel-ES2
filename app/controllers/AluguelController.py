@@ -21,7 +21,7 @@ def consulta_permite_aluguel(id_ciclista):
 
 @aluguelBp.route('/ciclista/<int:id_ciclista>/bicicletaAlugada',methods=['GET'])
 def consulta_bicicleta_alugada(id_ciclista):
-    bicicleta = AluguelService.AluguelService.verificar_ciclista_aluguel(id_ciclista)
+    bicicleta = AluguelService.AluguelService.verificar_bicicleta_alugada(id_ciclista)
 
     if bicicleta == False:
         return nao_econtrado,404
@@ -30,7 +30,7 @@ def consulta_bicicleta_alugada(id_ciclista):
         informacoes_bicicleta = {"id":bicicleta.id,"marca":bicicleta.marca,"modelo":bicicleta.modelo,"ano":bicicleta.ano,"status":bicicleta.status}
         return jsonify(informacoes_bicicleta),200
     else:
-        return bicicleta,200
+        return "Vazio",200
     
 @aluguelBp.route('/aluguel',methods=['POST'])
 def realizar_aluguel():
