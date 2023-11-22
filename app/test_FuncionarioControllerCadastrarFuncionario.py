@@ -8,6 +8,7 @@ class TestFuncionarioRoute(unittest.TestCase):
     def setUp(self):
         
         self.app = Flask(__name__)
+        self.app.config['WTF_CSRF_ENABLED'] = False
         self.app.register_blueprint(funcionarioBp)
         self.app.config['TESTING'] = True
         self.client = self.app.test_client()
