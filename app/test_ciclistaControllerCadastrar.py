@@ -14,7 +14,7 @@ class TestCiclistaControllerCadastro(unittest.TestCase):
 
     def test_realizar_cadastro_sucesso(self):
         # Dados válidos para um teste bem-sucedido
-        dados_validos = {"nome": "NomeCiclista","nascimento": "01/01/2000","cpf": "12345678901","numero": "Passaporte123","validade": "10/10/2030","pais": "Brasil","nacionalidade": "Brasileira","email": "ciclista@example.com","urlFotoDocumento": "http://example.com/foto","senha": "senha123"}
+        dados_validos = {"nome": "NomeCiclista","nascimento": "01/01/2000","cpf": "12345678901","numero": "Passaporte123","validade": "10/10/2030","pais": "Brasil","nacionalidade": "Brasileira","email": "ciclista@example.com","urlFotoDocumento": "https://example.com/foto","senha": "senha123"}
 
         # Chame a rota /ciclista com o método POST
         resposta = self.client.post('/ciclista', json=dados_validos)
@@ -29,7 +29,7 @@ class TestCiclistaControllerCadastro(unittest.TestCase):
     def test_realizar_cadastro_falha(self):
         # Dados inválidos para um teste de falha
         # Aqui a nacionalidade é diferente do padrão
-        dados_invalidos = {"nome": "NomeCiclista","nascimento": "01/01/2000","cpf": "12345678901","numero": "Passaporte123","validade": "10/10/2030","pais": "Brasil","nacionalidade": "Americana","email": "ciclista@example.com","urlFotoDocumento": "http://example.com/foto","senha": "senha456"} 
+        dados_invalidos = {"nome": "NomeCiclista","nascimento": "01/01/2000","cpf": "12345678901","numero": "Passaporte123","validade": "10/10/2030","pais": "Brasil","nacionalidade": "Americana","email": "ciclista@example.com","urlFotoDocumento": "https://example.com/foto","senha": "senha456"} 
 
         # Chame a rota /ciclista com o método POST
         resposta = self.client.post('/ciclista', json=dados_invalidos)
