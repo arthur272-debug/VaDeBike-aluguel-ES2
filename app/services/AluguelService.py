@@ -11,16 +11,16 @@ class AluguelService:
     @staticmethod
     def verificar_bicicleta_alugada(id_ciclista): # integração aqui (pega a bicicleta aqui)
         aluguel = None
-        ciclista = None
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
                 aluguel = ciclista.aluguel
                 break
+            ciclista = None
 
         if ciclista is None:
             return False
 
-        bicicleta = Bicicleta_fake.bicicleta(1,"boa","3235","2022",100,"normal") # pega a informação de outro microsserviço
+        bicicleta = Bicicleta_fake.bicicleta(ciclista.aluguel.bicicleta,"boa","3235","2022",100,"normal") # pega a informação de outro microsserviço
         if (aluguel is not None):
             return bicicleta
         else:
@@ -39,13 +39,17 @@ class AluguelService:
     
     @staticmethod
     def alugar_bicicleta(aluguel_dto): #integração aqui
+       ciclista = None
        for ciclista in lista_ciclista:
            if ciclista.id == aluguel_dto.ciclista:
+              if ciclista.aluguel is not None:
+                  return None
               ciclista.aluguel = aluguel_dto
               break
+           ciclista = None
         
-       if ciclista.aluguel is None:
-          return ciclista.aluguel
+       if ciclista is None:
+          return ciclista
        
        # pega as informações dos outros microsserviços
        ciclista.aluguel.trancaInicio = aluguel_dto.trancaInicio
