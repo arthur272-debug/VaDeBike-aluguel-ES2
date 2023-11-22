@@ -8,6 +8,7 @@ class TestCiclistaControllerCadastro(unittest.TestCase):
     def setUp(self):
         # Configuração inicial para os testes
         self.app = Flask(__name__)
+        self.app.config['WTF_CSRF_ENABLED'] = False
         self.app.register_blueprint(ciclistaBp)
         self.app.config['TESTING'] = True
         self.client = self.app.test_client()
