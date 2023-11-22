@@ -15,9 +15,9 @@ def consulta_permite_aluguel(id_ciclista):
         return nao_econtrado,404
 
     if aluguel is not None:
-        return False,200
+        return "False",200
     else:
-        return True,200
+        return "True",200
 
 @aluguelBp.route('/ciclista/<int:id_ciclista>/bicicletaAlugada',methods=['GET'])
 def consulta_bicicleta_alugada(id_ciclista):
