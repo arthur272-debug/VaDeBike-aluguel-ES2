@@ -23,7 +23,7 @@ class TestCartaoRouteAtualizacao(unittest.TestCase):
 
         # Chame a rota /cartaoDeCredito/<ciclista_id> com o método PUT
         dados_atualizados = {
-            "nomeTitular": "Titular Novo",
+            "nomeTitular": "Arthur Andre",
             "numero": "1111222233334444",
             "validade": "01-25",
             "cvv": "456"
@@ -40,7 +40,7 @@ class TestCartaoRouteAtualizacao(unittest.TestCase):
 
         # Chame a rota /cartaoDeCredito/<ciclista_id> com o método PUT
         dados_atualizados = {
-            "nomeTitular": "Titular Novo",
+            "nomeTitular": "Tutu",
             "numero": "1111222233334444",
             "validade": "01-25",
             "cvv": "456"
