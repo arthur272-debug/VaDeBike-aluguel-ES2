@@ -56,8 +56,8 @@ def realizar_atualizacao_ciclista(ciclista_id):
       return invalido,422 
     
     passaporte = Ciclista.Passaporte(ciclistaDados["numero"],ciclistaDados["validade"],ciclistaDados["pais"])
-    ciclistaDto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO,None,None)
-    ciclista = CiclistaService.CiclistaService.atualizar_ciclista(ciclista_id,ciclistaDto)
+    ciclista_dto = CiclistaDTO.CiclistaDto(ciclistaDados["nome"],ciclistaDados["nascimento"],ciclistaDados["cpf"],passaporte,nacionalidade_valida,ciclistaDados["email"],ciclistaDados["urlFotoDocumento"],0,ciclistaDados["senha"],RespostaCadastro.CONFIRMACAO,None,None)
+    ciclista = CiclistaService.CiclistaService.atualizar_ciclista(ciclista_id,ciclista_dto)
     if ciclista is not None:
       informacoesCiclista = {"id":ciclista.id,"status":ciclista.cadastro.value}
       return jsonify(informacoesCiclista), 200
@@ -81,7 +81,7 @@ def realizar_ativacao_ciclista(ciclista_id):
 @ciclistaBp.route('/ciclista/existeEmail/<email>',methods=['GET'])
 def realizar_verificao_email(email):
    
-   if not '@' in email:
+   if '@' not in email:
       return "Email não enviado como parâmetro", 400
    
    ExisteEmail = CiclistaService.CiclistaService.consultar_ciclista_email(email)
