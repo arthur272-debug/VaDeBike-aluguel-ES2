@@ -16,7 +16,7 @@ class TestCiclistaRouteAtivacao(unittest.TestCase):
 
     def test_realizar_ativacao_ciclista_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
-        ciclista_mock = MagicMock(email = "art.andre@gmail.com",nacionalidade = Nacionalidade.BRASILEIRA,nascimento="27/03/2022",nome="Tutu",senha="1234567",cpf="123456",numero="1235767",validade="23/09",pais="Brasil",urlFotoDocumento="http://192.168.1.5",cadastro=RespostaCadastro.CONFIRMACAO,id=1)
+        ciclista_mock = MagicMock(email = "art.andre@gmail.com",nacionalidade = Nacionalidade.BRASILEIRA,nascimento="27/03/2022",nome="Tutu",senha="1234567",cpf="123456",numero="1235767",validade="23/09",pais="Brasil",urlFotoDocumento="https://192.168.1.5",cadastro=RespostaCadastro.CONFIRMACAO,id=1)
 
         # Sobrescrever o método de consulta para retornar dados fictícios
         CiclistaService.CiclistaService.consultar_ciclista = lambda ciclista_id: ciclista_mock
@@ -43,7 +43,7 @@ class TestCiclistaRouteAtivacao(unittest.TestCase):
 
     def test_realizar_ativacao_ciclista_invalido(self):
         # Configurar dados fictícios para um teste de ativação inválida
-        ciclista_mock = MagicMock(email = "art.andre@gmail.com",nacionalidade = Nacionalidade.BRASILEIRA,nascimento="27/03/2022",nome="Tutu",senha="1234567",cpf="123456",numero="1235767",validade="23/09",pais="Brasil",urlFotoDocumento="http://192.168.1.5",cadastro=RespostaCadastro.ATIVO,id=1)
+        ciclista_mock = MagicMock(email = "art.andre@gmail.com",nacionalidade = Nacionalidade.BRASILEIRA,nascimento="27/03/2022",nome="Tutu",senha="1234567",cpf="123456",numero="1235767",validade="23/09",pais="Brasil",urlFotoDocumento="https://192.168.1.5",cadastro=RespostaCadastro.ATIVO,id=1)
 
 
         # Sobrescrever o método de consulta para retornar dados fictícios
