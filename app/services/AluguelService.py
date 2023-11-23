@@ -37,7 +37,7 @@ class AluguelService:
                 aluguel = ciclista.aluguel
                 return aluguel
           
-        return False
+        return ciclista==False
     
     @staticmethod
     def alugar_bicicleta(aluguel_dto): #integração aqui
