@@ -7,10 +7,11 @@ alugueis_historico = []
 
 class AluguelService:
 
-
     @staticmethod
-    def verificar_bicicleta_alugada(id_ciclista): # integração aqui (pega a bicicleta aqui)
+    # integração aqui (pega a bicicleta aqui)
+    def verificar_bicicleta_alugada(id_ciclista): 
         aluguel = None
+        ciclista= None
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
                 aluguel = ciclista.aluguel
@@ -34,7 +35,7 @@ class AluguelService:
             if ciclista.id == id_ciclista:
                 aluguel = ciclista.aluguel
                 return aluguel
-                
+          
         return False
     
     @staticmethod
