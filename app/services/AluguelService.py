@@ -61,9 +61,8 @@ class AluguelService:
       
        return ciclista.aluguel
     
-    @staticmethod #verificar aqui
+    @staticmethod
     def devolver_bicicleta(id_ciclista,id_tranca): #integração aqui
-       
        aluguel = None
        for ciclista in lista_ciclista:
            if ciclista.id == id_ciclista:
