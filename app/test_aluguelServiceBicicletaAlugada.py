@@ -9,7 +9,7 @@ class TestVerificarBicicletaAlugada(unittest.TestCase):
 
     def setUp(self):
         # Configuração inicial para os testes
-        # Adicione um ciclista à lista para testar
+
         Bicicleta_fake.bicicleta = MagicMock(return_value=MagicMock())
         Bicicleta_fake.bicicleta.bicicleta = MagicMock(return_value=MagicMock())
 

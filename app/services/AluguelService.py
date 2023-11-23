@@ -31,6 +31,7 @@ class AluguelService:
     @staticmethod
     def verificar_ciclista_aluguel(id_ciclista): 
         aluguel = None
+        ciclista = None
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
                 aluguel = ciclista.aluguel
