@@ -28,13 +28,13 @@ class TestFuncionarioRouteBusca(unittest.TestCase):
         self.assertEqual(resposta.status_code, 200)
         dados_resposta = resposta.get_json()
         self.assertIsInstance(dados_resposta, dict)
-        self.assertEqual(dados_resposta["senha"], funcionario_mock.senha)
-        self.assertEqual(dados_resposta["cpf"], funcionario_mock.cpf)
-        self.assertEqual(dados_resposta["email"], funcionario_mock.email)
-        self.assertEqual(dados_resposta["id"], funcionario_mock.id)
-        self.assertEqual(dados_resposta["funcao"], funcionario_mock.funcao)
         self.assertEqual(dados_resposta["idade"], funcionario_mock.idade)
         self.assertEqual(dados_resposta["nome"], funcionario_mock.nome)
+        self.assertEqual(dados_resposta["id"], funcionario_mock.id)
+        self.assertEqual(dados_resposta["cpf"], funcionario_mock.cpf)
+        self.assertEqual(dados_resposta["email"], funcionario_mock.email)
+        self.assertEqual(dados_resposta["funcao"], funcionario_mock.funcao)
+        self.assertEqual(dados_resposta["senha"], funcionario_mock.senha)
         
 
     def test_realizar_busca_funcionario_nao_encontrado(self):
