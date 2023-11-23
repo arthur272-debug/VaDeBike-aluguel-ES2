@@ -6,7 +6,7 @@ aluguelBp = Blueprint('aluguelBp',__name__)
 invalido = "Dados Inválidos"
 nao_econtrado = "Não encontrado"
 
-# 4 endpoints
+
 @aluguelBp.route('/ciclista/<int:id_ciclista>/permiteAluguel',methods = ['GET'])
 def consulta_permite_aluguel(id_ciclista):
     aluguel = AluguelService.AluguelService.verificar_ciclista_aluguel(id_ciclista)
