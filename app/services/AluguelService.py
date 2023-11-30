@@ -1,5 +1,6 @@
 from services import CiclistaService
-from models import Bicicleta_fake # será substituido
+from models import Bicicleta_fake,Aluguel # será substituido
+
 
 lista_ciclista = CiclistaService.CiclistaService.Ciclista
 
@@ -46,7 +47,8 @@ class AluguelService:
            if ciclista.id == aluguel_dto.ciclista:
               if ciclista.aluguel is not None:
                   return None
-              ciclista.aluguel = aluguel_dto
+              aluguel = Aluguel.Aluguel(aluguel_dto.ciclista,aluguel_dto.trancaInicio,aluguel_dto.bicicleta,aluguel_dto.horaInicio,aluguel_dto.trancaFim,aluguel_dto.horaFim,aluguel_dto.cobranca)
+              ciclista.aluguel = aluguel
               break
            ciclista = None
         
