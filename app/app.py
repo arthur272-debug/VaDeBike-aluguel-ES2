@@ -1,6 +1,6 @@
 from flask import Flask
 from controllers.FuncionarioController import funcionarioBp
-from controllers.CiclistaController import ciclistaBp 
+from controllers.CiclistaController import ciclistaBp
 from controllers.CartaoController import cartaoBp
 from controllers.AluguelController import aluguelBp
 
@@ -11,4 +11,4 @@ app.register_blueprint(cartaoBp)
 app.register_blueprint(aluguelBp)
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)
