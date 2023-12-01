@@ -38,6 +38,13 @@ def realizar_aluguel():
     aluguel_dto = AluguelDTO.AluguelDto(aluguel_dados["ciclista"],aluguel_dados["trancaInicio"],0,0,0,0,0)
     aluguel = AluguelService.AluguelService.alugar_bicicleta(aluguel_dto)
     
+    if aluguel =="ErroTranca":
+        return "Dados Inválidos(Tranca Inválida)", 422
+    elif aluguel =="BicicletaNaoExiste":
+        return "Dados Inválidos(Bicicleta Não existe)",422
+    elif aluguel =="BicicletaReparo":
+        return "Dados Inválidos(Bicicleta não está em condições de uso)"
+
     if aluguel is not None:
         informacoes_aluguel = {"bicicleta":aluguel.bicicleta,"horaInicio":aluguel.horaInicio,"trancaFim":aluguel.trancaFim,"horaFim":aluguel.horaFim,"cobranca":aluguel.cobranca,"ciclista":aluguel.ciclista,"trancaInicio":aluguel.trancaInicio}
         return jsonify(informacoes_aluguel),200

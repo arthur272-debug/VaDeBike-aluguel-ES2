@@ -1,10 +1,9 @@
 from services import CiclistaService
-from models import Bicicleta_fake,Aluguel # será substituido
-
 
 lista_ciclista = CiclistaService.CiclistaService.Ciclista
-
+lista_tranca = [] # colocar a lista de trancas
 alugueis_historico = []
+
 
 class AluguelService:
 
@@ -41,13 +40,28 @@ class AluguelService:
         return ciclista==False
     
     @staticmethod
-    def alugar_bicicleta(aluguel_dto): #integração aqui
+    def alugar_bicicleta(aluguel_dto): 
        ciclista = None
+       tranca = None
+       for tranca in lista_tranca:
+           if tranca == aluguel_dto.trancaInicio:
+               break
+        
+       if tranca is None:
+          return "ErroTranca"
+
+       # verifica se tem bicicleta na tranca(integração) -- exceção aqui
+       #return  "BicicletaNaoExiste"
+       bicicleta = 0 # pega a bicicleta através dp número da tranca
+       
+       if(bicicleta.status == "em reparo"):
+           return "BicicletaReparo"
+
        for ciclista in lista_ciclista:
-           if ciclista.id == aluguel_dto.ciclista:
+           if (ciclista.id == aluguel_dto.ciclista) and (ciclista.cadastro.value == "ATIVO"):
               if ciclista.aluguel is not None:
                   return None
-              aluguel = Aluguel.Aluguel(aluguel_dto.ciclista,aluguel_dto.trancaInicio,aluguel_dto.bicicleta,aluguel_dto.horaInicio,aluguel_dto.trancaFim,aluguel_dto.horaFim,aluguel_dto.cobranca)
+              aluguel = Aluguel.Aluguel(aluguel_dto.ciclista,aluguel_dto.trancaInicio,bicicleta,aluguel_dto.horaInicio,aluguel_dto.trancaFim,aluguel_dto.horaFim,aluguel_dto.cobranca)
               ciclista.aluguel = aluguel
               break
            ciclista = None
@@ -56,8 +70,7 @@ class AluguelService:
           return ciclista
        
        # pega as informações dos outros microsserviços
-       ciclista.aluguel.trancaInicio = aluguel_dto.trancaInicio
-       ciclista.aluguel.bicicleta = len(alugueis_historico)+1 # muda -- fake
+       # parei aqui
        ciclista.aluguel.horaInicio = 0
        ciclista.aluguel.cobranca = 0  
       
@@ -83,4 +96,6 @@ class AluguelService:
        alugueis_historico.append(aluguel)
        ciclista.aluguel = None
        return aluguel
+    
+    
     
