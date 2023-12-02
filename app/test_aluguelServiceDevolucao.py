@@ -1,7 +1,8 @@
-import unittest  #talvez será alterado
+import unittest
 from unittest.mock import MagicMock
-from models import Ciclista, Bicicleta_fake
+from models import Ciclista
 from services import AluguelService
+
 
 class TestDevolverBicicleta(unittest.TestCase):
 
@@ -9,7 +10,8 @@ class TestDevolverBicicleta(unittest.TestCase):
         # Configuração inicial para os testes
 
         self.contador = +1
-        aluguel_exemplo = MagicMock(ciclista=self.contador,trancaInicio=1234,bicicleta=1,horaInicio=0,trancaFim=0,horaFim=0,cobranca=0)
+        aluguel_exemplo = MagicMock(ciclista=self.contador, trancaInicio=1234,
+                                    bicicleta=1, horaInicio=0, trancaFim=0, horaFim=0, cobranca=0)
 
         ciclista = Ciclista.Ciclista(
             nome="Arthur",
@@ -29,8 +31,9 @@ class TestDevolverBicicleta(unittest.TestCase):
 
     def test_devolver_bicicleta_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
-        
-        aluguel_exemplo2 = MagicMock(ciclista=self.contador,trancaInicio=1234567,bicicleta=1,horaInicio=65,trancaFim=80,horaFim=70,cobranca=10)
+
+        aluguel_exemplo2 = MagicMock(ciclista=self.contador, trancaInicio=1234567,
+                                     bicicleta=1, horaInicio=65, trancaFim=80, horaFim=70, cobranca=10)
 
         ciclista = Ciclista.Ciclista(
             nome="Arthur",
@@ -57,7 +60,7 @@ class TestDevolverBicicleta(unittest.TestCase):
         # Verifique se as informações do aluguel foram atualizadas corretamente
         self.assertEqual(resultado.trancaFim, 0)
         self.assertEqual(resultado.horaFim, 0)
-        self.assertEqual(resultado.cobranca, 30)  
+        self.assertEqual(resultado.cobranca, 30)
 
         # Verifique se o aluguel foi adicionado à lista de histórico
         self.assertIn(resultado, AluguelService.alugueis_historico)
@@ -74,10 +77,12 @@ class TestDevolverBicicleta(unittest.TestCase):
         AluguelService.AluguelService.verificar_bicicleta_alugada = lambda id_ciclista: None
 
         # Chame a função devolver_bicicleta com os dados fictícios
-        resultado = AluguelService.AluguelService.devolver_bicicleta(id_ciclista, id_tranca)
+        resultado = AluguelService.AluguelService.devolver_bicicleta(
+            id_ciclista, id_tranca)
 
         # Verifique se o resultado é None (ciclista não encontrado)
         self.assertIsNone(resultado)
+
 
 if __name__ == '__main__':
     unittest.main()
