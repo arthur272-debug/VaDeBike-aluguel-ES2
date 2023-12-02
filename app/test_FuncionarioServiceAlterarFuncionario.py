@@ -45,8 +45,7 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock3)
 
-        resultado = FuncionarioService.FuncionarioService.atualizar_funcionario(
-            999, funcionario_mock3)
+        resultado = FuncionarioService.FuncionarioService.atualizar_funcionario(99999, funcionario_mock3)
 
         # Verifique se o resultado é None
         self.assertIsNone(resultado)
