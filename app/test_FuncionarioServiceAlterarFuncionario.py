@@ -39,7 +39,7 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
     def test_atualizarFuncionario_inexistente(self):
         # Chame a função atualizarFuncionario para um ID que não existe
         funcionario_mock3 = MagicMock(cpf="12345678", documento="12345678910111213", email="tutu.andre345@gmail.com",
-                                      funcao="Consultor de T.I.", idade=21, nome="Arthur", id=2, senha="outra_senha")
+                                      funcao="Consultor de T.I.", idade=21, nome="Arthur", id=0, senha="outra_senha")
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock3)
 
