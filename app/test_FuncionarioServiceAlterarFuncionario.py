@@ -1,6 +1,6 @@
 import unittest
 from services import FuncionarioService
-from unittest.mock import MagicMock
+from unittest.mock import Mock
 
 
 class TestCiclistaServiceAtualizar(unittest.TestCase):
@@ -8,14 +8,14 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
     def setUp(self):
         # Configuração inicial para os testes
         FuncionarioService.FuncionarioService.funcionarios.clear
-        funcionario_mock1 = MagicMock(cpf="1234567800", documento="12345678910", email="arthur.andre@gmail.com",
+        funcionario_mock1 = Mock(cpf="1234567800", documento="12345678910", email="arthur.andre@gmail.com",
                                       funcao="Analista de T.I.", idade=21, nome="Arthur", id=1, senha="senha123")
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock1)
 
     def test_atualizarFuncionario_existente(self):
         # Chame a função atualizarFuncionario para um ID existente
-        funcionario_mock2 = MagicMock(cpf="12345678", documento="cpf", email="tutu.andreee@gmail.com",
+        funcionario_mock2 = Mock(cpf="12345678", documento="cpf", email="tutu.andreee@gmail.com",
                                       funcao="Sênior de T.I.", idade=22, nome="Tutu", id=2, senha="nova_senha")
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock2)
@@ -38,7 +38,7 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
 
     def test_atualizarFuncionario_inexistente(self):
         # Chame a função atualizarFuncionario para um ID que não existe
-        funcionario_mock3 = MagicMock(cpf="12345678", documento="12345678910111213", email="tutu.andre345@gmail.com",
+        funcionario_mock3 = Mock(cpf="12345678", documento="12345678910111213", email="tutu.andre345@gmail.com",
                                       funcao="Consultor de T.I.", idade=21, nome="Arthur", id=0, senha="outra_senha")
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock3)
