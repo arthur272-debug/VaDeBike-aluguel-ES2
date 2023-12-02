@@ -41,7 +41,7 @@ def consulta_bicicleta_alugada(id_ciclista):
 def realizar_aluguel():
     aluguel_dados = request.json
     aluguel_dto = AluguelDTO.AluguelDto(
-        aluguel_dados["ciclista"], aluguel_dados["trancaInicio"], 0, 0, 0, 0, 0)
+        aluguel_dados["ciclista"], aluguel_dados["trancaInicio"], 0, 0, 0, 0, 0,None)
     aluguel = AluguelService.AluguelService.alugar_bicicleta(aluguel_dto)
 
     if aluguel == "ErroTranca":
@@ -50,6 +50,8 @@ def realizar_aluguel():
         return "Dados Inválidos(Bicicleta Não existe)", 422
     elif aluguel == "BicicletaReparo":
         return "Dados Inválidos(Bicicleta não está em condições de uso)"
+    elif aluguel == "PagamentoNaoFeito":
+        return "Dados Inválidos(Pagamento não realizado)"
 
     if aluguel is not None:
         informacoes_aluguel = {"bicicleta": aluguel.bicicleta, "horaInicio": aluguel.horaInicio, "trancaFim": aluguel.trancaFim,
