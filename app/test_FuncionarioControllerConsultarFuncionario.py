@@ -4,6 +4,9 @@ from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
+FuncionarioService.FuncionarioService.funcionarios.clear
+
+
 class TestFuncionarioRouteBusca(unittest.TestCase):
 
     def setUp(self):
@@ -16,7 +19,8 @@ class TestFuncionarioRouteBusca(unittest.TestCase):
 
     def test_realizar_busca_funcionario_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
-        funcionario_mock = MagicMock(senha="1234",cpf="123456789",email="arthur.andre@gmail.com",documento="cpf",funcao="analista de segurança",idade = 21,nome="Nome1",id=1)
+        funcionario_mock = MagicMock(senha="1234", cpf="123456789", email="arthur.andre@gmail.com",
+                                     documento="cpf", funcao="analista de segurança", idade=21, nome="Nome1", id=1)
 
         # Sobrescrever o método de consulta para retornar dados fictícios
         FuncionarioService.FuncionarioService.consultar_funcionario = lambda funcionario_id: funcionario_mock
@@ -35,7 +39,6 @@ class TestFuncionarioRouteBusca(unittest.TestCase):
         self.assertEqual(dados_resposta["email"], funcionario_mock.email)
         self.assertEqual(dados_resposta["funcao"], funcionario_mock.funcao)
         self.assertEqual(dados_resposta["senha"], funcionario_mock.senha)
-        
 
     def test_realizar_busca_funcionario_nao_encontrado(self):
         # Sobrescrever o método de consulta para retornar None (funcionário não encontrado)
@@ -46,6 +49,7 @@ class TestFuncionarioRouteBusca(unittest.TestCase):
 
         # Verifique se a resposta é 404 Not Found
         self.assertEqual(resposta.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main()

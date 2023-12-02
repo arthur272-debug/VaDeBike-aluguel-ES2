@@ -4,6 +4,9 @@ from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
+FuncionarioService.FuncionarioService.funcionarios.clear
+
+
 class TestFuncionarioRouteAtualizacao(unittest.TestCase):
 
     def setUp(self):
@@ -16,7 +19,8 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
 
     def test_realizar_atualizacao_funcionario_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
-        funcionario_mock = MagicMock(senha="1234",cpf="123456789",email="arthur.andre@gmail.com",documento="cpf",funcao="analista de segurança",idade = 21,nome="Nome1",id=1)
+        funcionario_mock = MagicMock(senha="1234", cpf="123456789", email="arthur.andre@gmail.com",
+                                     documento="cpf", funcao="analista de segurança", idade=21, nome="Nome1", id=1)
 
         # Sobrescrever o método de atualização para retornar dados fictícios
         FuncionarioService.FuncionarioService.atualizar_funcionario = lambda funcionario_id, funcionario_dto: funcionario_mock
@@ -47,7 +51,6 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
         self.assertEqual(dados_resposta["funcao"], funcionario_mock.funcao)
         self.assertEqual(dados_resposta["idade"], funcionario_mock.idade)
         self.assertEqual(dados_resposta["nome"], funcionario_mock.nome)
-        
 
     def test_realizar_atualizacao_funcionario_nao_encontrado(self):
         # Sobrescrever o método de atualização para retornar None (funcionário não encontrado)
@@ -72,7 +75,7 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
         self.assertEqual(resposta.status_code, 404)
 
     def test_realizar_atualizacao_funcionario_invalido(self):
-        
+
         # Dados fictícios para a atualização com ID inválido (não inteiro)
         dados_atualizacao_invalido = {
             "senha": "senha123",
@@ -81,15 +84,17 @@ class TestFuncionarioRouteAtualizacao(unittest.TestCase):
             "email": "teste@example.com",
             "documento": "documento123",
             "funcao": "Desenvolvedor",
-            "idade": "25",  
+            "idade": "25",
             "nome": "Arthur"
         }
 
         # Chame a rota /funcionario/<funcionario_id> com o método PUT e dados inválidos
-        resposta = self.client.put('/funcionario/1', json=dados_atualizacao_invalido)
+        resposta = self.client.put(
+            '/funcionario/1', json=dados_atualizacao_invalido)
 
         # Verifique se a resposta é 422 Unprocessable Entity (dados inválidos)
         self.assertEqual(resposta.status_code, 422)
+
 
 if __name__ == '__main__':
     unittest.main()

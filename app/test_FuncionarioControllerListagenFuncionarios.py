@@ -4,6 +4,9 @@ from services import FuncionarioService
 from controllers.FuncionarioController import funcionarioBp
 from unittest.mock import MagicMock
 
+FuncionarioService.FuncionarioService.funcionarios.clear
+
+
 class TestFuncionarioRouteListagem(unittest.TestCase):
     def setUp(self):
         # Configuração inicial para os testes
@@ -16,11 +19,12 @@ class TestFuncionarioRouteListagem(unittest.TestCase):
     def test_realizar_listagem_funcionarios_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
 
-        
-        funcionario_mock1 = MagicMock(senha="1234",cpf="123456789",email="arthur.andre@gmail.com",documento="cpf",funcao="analista de segurança",idade = 21,nome="Nome1",id=1)
-        funcionario_mock2 = MagicMock(senha="123456",cpf="12345678910",email="arthur.andre@gmailfdfdf.com",documento="rg",funcao="analista de T.I,",idade = 27,nome="Nome3",id=2)
+        funcionario_mock1 = MagicMock(senha="1234", cpf="123456789", email="arthur.andre@gmail.com",
+                                      documento="cpf", funcao="analista de segurança", idade=21, nome="Nome1", id=1)
+        funcionario_mock2 = MagicMock(senha="123456", cpf="12345678910", email="arthur.andre@gmailfdfdf.com",
+                                      documento="rg", funcao="analista de T.I,", idade=27, nome="Nome3", id=2)
 
-        funcionarios_mock = [funcionario_mock1,funcionario_mock2]
+        funcionarios_mock = [funcionario_mock1, funcionario_mock2]
 
         # Sobrescrever o método de consulta para retornar dados fictícios
         FuncionarioService.FuncionarioService.consultar_lista_funcionario = lambda: funcionarios_mock
@@ -43,6 +47,7 @@ class TestFuncionarioRouteListagem(unittest.TestCase):
 
         # Verifique se a resposta é 404 Not Found
         self.assertEqual(resposta.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,6 +2,10 @@ import unittest
 from flask import Flask
 from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
+
+FuncionarioService.FuncionarioService.funcionarios.clear
+
+
 class TestFuncionarioRouteExclusao(unittest.TestCase):
 
     def setUp(self):
@@ -32,6 +36,7 @@ class TestFuncionarioRouteExclusao(unittest.TestCase):
 
         # Verifique se a resposta é 404 Not Found
         self.assertEqual(resposta.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main()
