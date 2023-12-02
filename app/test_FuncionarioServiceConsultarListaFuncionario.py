@@ -4,10 +4,10 @@ from unittest.mock import MagicMock
 
 
 class TestFuncionarioServiceConsultarLista(unittest.TestCase):
+    FuncionarioService.FuncionarioService.funcionarios.clear
 
     def setUp(self):
         # Configuração inicial para os testes
-        FuncionarioService.FuncionarioService.funcionarios.clear
         funcionario_mock1 = MagicMock(senha="1234", cpf="123456789", email="arthur.andre@gmail.com",
                                       documento="cpf", funcao="analista de segurança", idade=21, nome="Nome1", id=1)
         FuncionarioService.FuncionarioService.funcionarios.append(

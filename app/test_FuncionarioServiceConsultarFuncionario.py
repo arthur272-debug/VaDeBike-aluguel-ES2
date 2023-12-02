@@ -31,7 +31,7 @@ class TestFuncionarioServiceConsultar(unittest.TestCase):
     def test_consultarFuncionario_inexistente(self):
         # Chame a função consultarFuncionario para um ID que não existe
         resultado = FuncionarioService.FuncionarioService.consultar_funcionario(
-            999)
+            999990)
 
         # Verifique se o resultado é None
         self.assertIsNone(resultado)
