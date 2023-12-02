@@ -2,8 +2,7 @@ import unittest
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
-lista = []
-FuncionarioService.FuncionarioService.funcionarios = lista
+FuncionarioService.FuncionarioService.funcionarios = []
 
 
 class TestFuncionarioServiceConsultar(unittest.TestCase):
@@ -14,8 +13,10 @@ class TestFuncionarioServiceConsultar(unittest.TestCase):
                                       documento="cpf", funcao="analista de segurança", idade=21, nome="Nome1", id=1)
         funcionario_mock2 = MagicMock(senha="1234567689", cpf="1234567892343", email="tutu.andre@gmail.com",
                                       documento="rg", funcao="analista de T.I.", idade=25, nome="Nome5", id=2)
-        lista.append(funcionario_mock1)
-        lista.append(funcionario_mock2)
+        FuncionarioService.FuncionarioService.funcionarios.append(
+            funcionario_mock1)
+        FuncionarioService.FuncionarioService.funcionarios.append(
+            funcionario_mock2)
 
     def test_consultarFuncionario_existente(self):
         # Chame a função consultarFuncionario para um ID existente

@@ -2,6 +2,8 @@ import unittest
 from services import CartaoService
 from unittest.mock import MagicMock
 
+CartaoService.ciclista_lista = []
+
 
 class TestCartaoServiceAlterar(unittest.TestCase):
 

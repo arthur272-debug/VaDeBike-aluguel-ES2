@@ -2,6 +2,8 @@ import unittest
 from services import CiclistaService
 from unittest.mock import MagicMock
 
+CiclistaService.CiclistaService.Ciclista = []
+
 
 class TestCiclistaServiceConsultarEmail(unittest.TestCase):
 
@@ -24,7 +26,8 @@ class TestCiclistaServiceConsultarEmail(unittest.TestCase):
 
     def test_consultar_ciclistaEmail_inexistente(self):
         # Chame a função consultarCiclistaEmail para um email que não existe
-        resultado = CiclistaService.CiclistaService.consultar_ciclista_email("tutu@gmail.com")
+        resultado = CiclistaService.CiclistaService.consultar_ciclista_email(
+            "tutu@gmail.com")
 
         # Verifique se o resultado é False
         self.assertFalse(resultado)

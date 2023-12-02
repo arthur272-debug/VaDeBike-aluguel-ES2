@@ -2,6 +2,8 @@ import unittest
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
+FuncionarioService.FuncionarioService.funcionarios = []
+
 
 class TestFuncionarioServiceDeletar(unittest.TestCase):
 
