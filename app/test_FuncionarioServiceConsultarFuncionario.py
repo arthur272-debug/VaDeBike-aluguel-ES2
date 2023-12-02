@@ -2,7 +2,7 @@ import unittest
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
-FuncionarioService.FuncionarioService.funcionarios = []
+FuncionarioService.FuncionarioService.funcionarios.clear
 
 
 class TestFuncionarioServiceConsultar(unittest.TestCase):
