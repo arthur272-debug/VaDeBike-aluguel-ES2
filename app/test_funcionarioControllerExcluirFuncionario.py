@@ -3,12 +3,11 @@ from flask import Flask
 from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
 
-FuncionarioService.FuncionarioService.funcionarios.clear
-
 
 class TestFuncionarioRouteExclusao(unittest.TestCase):
 
     def setUp(self):
+        FuncionarioService.FuncionarioService.funcionarios.clear
         # Configuração inicial para os testes
         self.app = Flask(__name__)
         self.app.config['WTF_CSRF_ENABLED'] = False

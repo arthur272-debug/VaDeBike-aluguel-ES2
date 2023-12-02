@@ -3,13 +3,13 @@ from flask import Flask
 from services import FuncionarioService
 from controllers.FuncionarioController import funcionarioBp
 
-FuncionarioService.FuncionarioService.funcionarios.clear
+
 
 
 class TestFuncionarioRoute(unittest.TestCase):
 
     def setUp(self):
-
+        FuncionarioService.FuncionarioService.funcionarios.clear
         self.app = Flask(__name__)
         self.app.config['WTF_CSRF_ENABLED'] = False
         self.app.register_blueprint(funcionarioBp)

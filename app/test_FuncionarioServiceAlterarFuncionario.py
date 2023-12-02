@@ -2,14 +2,12 @@ import unittest
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
-FuncionarioService.FuncionarioService.funcionarios.clear
-
 
 class TestCiclistaServiceAtualizar(unittest.TestCase):
 
     def setUp(self):
         # Configuração inicial para os testes
-
+        FuncionarioService.FuncionarioService.funcionarios.clear
         funcionario_mock1 = MagicMock(cpf="1234567800", documento="12345678910", email="arthur.andre@gmail.com",
                                       funcao="Analista de T.I.", idade=21, nome="Arthur", id=1, senha="senha123")
         FuncionarioService.FuncionarioService.funcionarios.append(
@@ -45,7 +43,8 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock3)
 
-        resultado = FuncionarioService.FuncionarioService.atualizar_funcionario(99999, funcionario_mock3)
+        resultado = FuncionarioService.FuncionarioService.atualizar_funcionario(
+            99999, funcionario_mock3)
 
         # Verifique se o resultado é None
         self.assertIsNone(resultado)

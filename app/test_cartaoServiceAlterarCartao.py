@@ -2,13 +2,12 @@ import unittest
 from services import CartaoService
 from unittest.mock import MagicMock
 
-CartaoService.ciclista_lista = []
-
 
 class TestCartaoServiceAlterar(unittest.TestCase):
 
     def setUp(self):
         # Configuração inicial para os testes
+        CartaoService.ciclista_lista.clear
         cartao_mock = MagicMock(nomeTitular="Titular Antigo",
                                 numero="1111222233334444", validade="12/25", cvv="123", id=1)
         ciclista_mock1 = MagicMock(nome="Arthur", nascimento="27/03/2002", cpf="122323", passaporte=None, nacionalidade="Brasileiro",

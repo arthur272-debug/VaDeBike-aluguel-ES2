@@ -4,12 +4,11 @@ from controllers.FuncionarioController import funcionarioBp
 from services import FuncionarioService
 from unittest.mock import MagicMock
 
-FuncionarioService.FuncionarioService.funcionarios.clear
-
 
 class TestFuncionarioRouteBusca(unittest.TestCase):
 
     def setUp(self):
+        FuncionarioService.FuncionarioService.funcionarios.clear
         # Configuração inicial para os testes
         self.app = Flask(__name__)
         self.app.config['WTF_CSRF_ENABLED'] = False
