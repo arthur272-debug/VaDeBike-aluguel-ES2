@@ -1,8 +1,8 @@
-from controllers.AluguelController import aluguelBp
 import unittest
 from flask import Flask
 from unittest.mock import MagicMock
 from services import AluguelService
+from controllers.AluguelController import aluguelBp
 
 
 class TestAluguelRouteRealizarAluguel(unittest.TestCase):

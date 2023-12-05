@@ -4,6 +4,7 @@ from controllers.AluguelController import aluguelBp
 from unittest.mock import MagicMock
 from services import AluguelService
 
+
 class TestAluguelRouteConsultaBicicletaAlugada(unittest.TestCase):
 
     def setUp(self):
@@ -16,7 +17,8 @@ class TestAluguelRouteConsultaBicicletaAlugada(unittest.TestCase):
 
     def test_consulta_bicicleta_alugada_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
-        bicicleta_mock = MagicMock(id=1,marca="Marca1",modelo="Modelo1",ano=2022,status="Alugada")
+        bicicleta_mock = MagicMock(
+            id=1, marca="Marca1", modelo="Modelo1", ano=2022, status="Alugada")
 
         # Sobrescrever o método de verificação para retornar dados fictícios
         AluguelService.AluguelService.verificar_bicicleta_alugada = lambda ciclista_id: bicicleta_mock
@@ -54,6 +56,7 @@ class TestAluguelRouteConsultaBicicletaAlugada(unittest.TestCase):
         # Verifique se a resposta é "Vazio" e o status é 200 OK
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.get_data(as_text=True), "Vazio")
+
 
 if __name__ == '__main__':
     unittest.main()
