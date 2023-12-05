@@ -65,7 +65,7 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'  #talvez esteja errado??
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}  #talvez esteja errado??
 
 
       - name: Deploy to Cloud Run
