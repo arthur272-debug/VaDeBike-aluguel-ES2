@@ -1,4 +1,4 @@
-name: ci/cd
+ name: ci/cd
 on:
   push:
     branches:
@@ -44,7 +44,7 @@ jobs:
   deploy:
     env:
       PROJECT_ID: vadebike-es2 # TODO: update Google Cloud project id
-      SERVICE: va-de-bike-web # TODO: update Cloud Run service name
+      SERVICE: microservice-aluguel # TODO: update Cloud Run service name
       REGION: us-central1 # TODO: update Cloud Run service region
    
       
@@ -64,7 +64,7 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '$vadebike-es2'  #talvez esteja errado??
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'  #talvez esteja errado??
 
 
       - name: Deploy to Cloud Run
