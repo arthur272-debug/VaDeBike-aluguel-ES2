@@ -22,12 +22,11 @@ jobs:
         run: |
           pip3 install --no-cache-dir -r requirements.txt
         working-directory: ${{ github.workspace }}
-
-      - name: Run tests
-        run: |
-          pytest  
-        working-directory: ${{ github.workspace }}
         
+      - name: Run tests and coverage
+        run: |
+          coverage run src/tests/test.py
+          coverage xml -o coverage.xml
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
