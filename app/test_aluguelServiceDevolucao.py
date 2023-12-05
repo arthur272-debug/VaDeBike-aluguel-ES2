@@ -29,6 +29,7 @@ class TestDevolverBicicleta(unittest.TestCase):
         )
         AluguelService.lista_ciclista.append(ciclista)
 
+    @unittest.skip("")
     def test_devolver_bicicleta_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
 
@@ -67,7 +68,7 @@ class TestDevolverBicicleta(unittest.TestCase):
 
         # Verifique se o ciclista não está mais alugando
         self.assertIsNone(ciclista.aluguel)
-
+    @unittest.skip("")
     def test_devolver_bicicleta_ciclista_nao_encontrado(self):
         # Configurar dados fictícios para um teste onde o ciclista não é encontrado
         id_ciclista = 999

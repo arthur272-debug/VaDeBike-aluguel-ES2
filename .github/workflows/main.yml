@@ -25,7 +25,8 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest  
+          coverage run -m pytest
+          coverage xml -o coverage.xml
         working-directory: ${{ github.workspace }}
         
   sonarcloud:
@@ -40,7 +41,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: $9fc36bb3dfe520be608f7ae7b5a1ba5b66191da8  #token do sonar !!!!
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} #token do sonar !!!!
   deploy:
     env:
       PROJECT_ID: vadebike-es2 # TODO: update Google Cloud project id

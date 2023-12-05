@@ -1,8 +1,9 @@
 import unittest
 from flask import Flask
-from controllers.AluguelController import aluguelBp
 from unittest.mock import MagicMock
 from services import AluguelService
+from controllers.AluguelController import aluguelBp
+
 
 class TestAluguelRouteRealizarAluguel(unittest.TestCase):
 
@@ -30,7 +31,8 @@ class TestAluguelRouteRealizarAluguel(unittest.TestCase):
         AluguelService.AluguelService.alugar_bicicleta = lambda aluguel_dto: aluguel_mock
 
         # Chame a rota /aluguel com o método POST
-        resposta = self.client.post('/aluguel', json={"ciclista": "Ciclista1", "trancaInicio": "TrancaInicio1"})
+        resposta = self.client.post(
+            '/aluguel', json={"ciclista": "Ciclista1", "trancaInicio": "TrancaInicio1"})
 
         # Verifique se a resposta é 200 OK e se contém os dados esperados
         self.assertEqual(resposta.status_code, 200)
@@ -42,17 +44,20 @@ class TestAluguelRouteRealizarAluguel(unittest.TestCase):
         self.assertEqual(dados_resposta["horaFim"], aluguel_mock.horaFim)
         self.assertEqual(dados_resposta["cobranca"], aluguel_mock.cobranca)
         self.assertEqual(dados_resposta["ciclista"], aluguel_mock.ciclista)
-        self.assertEqual(dados_resposta["trancaInicio"], aluguel_mock.trancaInicio)
+        self.assertEqual(
+            dados_resposta["trancaInicio"], aluguel_mock.trancaInicio)
 
     def test_realizar_aluguel_invalido(self):
         # Sobrescrever o método de aluguel para retornar None (aluguel inválido)
         AluguelService.AluguelService.alugar_bicicleta = lambda aluguel_dto: None
 
         # Chame a rota /aluguel com o método POST
-        resposta = self.client.post('/aluguel', json={"ciclista": "Ciclista1", "trancaInicio": "TrancaInicio1"})
+        resposta = self.client.post(
+            '/aluguel', json={"ciclista": "Ciclista1", "trancaInicio": "TrancaInicio1"})
 
         # Verifique se a resposta é 422 Unprocessable Entity
         self.assertEqual(resposta.status_code, 422)
+
 
 if __name__ == '__main__':
     unittest.main()
