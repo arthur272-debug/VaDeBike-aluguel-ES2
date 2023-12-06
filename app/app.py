@@ -9,6 +9,6 @@ app.register_blueprint(funcionarioBp)
 app.register_blueprint(ciclistaBp)
 app.register_blueprint(cartaoBp)
 app.register_blueprint(aluguelBp)
-
+###
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
