@@ -1,5 +1,6 @@
 from models import Funcionario
 
+
 class FuncionarioService:
     funcionarios = []
 
@@ -14,8 +15,8 @@ class FuncionarioService:
 
     @staticmethod
     def consultar_lista_funcionario():
-        lista_dto = FuncionarioService.funcionarios
-        return lista_dto
+        lista_funcionarios = FuncionarioService.funcionarios
+        return lista_funcionarios
 
     @staticmethod
     def consultar_funcionario(idFuncionario):
@@ -28,15 +29,16 @@ class FuncionarioService:
     def atualizar_funcionario(idFuncionario, funcionario_dto):
         funcionario = FuncionarioService.consultar_funcionario(idFuncionario)
         if funcionario is not None:
-            funcionario.senha = funcionario_dto.senha
-            funcionario.cpf = funcionario_dto.cpf
-            funcionario.email = funcionario_dto.email
-            funcionario.documento = funcionario_dto.documento
-            funcionario.funcao = funcionario_dto.funcao
-            funcionario.idade = funcionario_dto.idade
-            funcionario.nome = funcionario_dto.nome
-            return funcionario
-        return None
+            funcionario_novo = Funcionario.Funcionario(funcionario_dto.senha, funcionario_dto.cpf, funcionario_dto.email,
+                                                       funcionario_dto.documento, funcionario_dto.funcao, funcionario_dto.idade, funcionario_dto.nome, 0)
+            funcionario.senha = funcionario_novo.senha
+            funcionario.cpf = funcionario_novo.cpf
+            funcionario.email = funcionario_novo.email
+            funcionario.documento = funcionario_novo.documento
+            funcionario.funcao = funcionario_novo.funcao
+            funcionario.idade = funcionario_novo.idade
+            funcionario.nome = funcionario_novo.nome
+        return Funcionario
 
     @staticmethod
     def deletar_funcionario(idFuncionario):

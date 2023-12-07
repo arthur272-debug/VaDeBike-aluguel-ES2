@@ -1,17 +1,18 @@
 from services import CiclistaService
 from models import Aluguel
 from datetime import datetime
+import requests
 
 lista_ciclista = CiclistaService.CiclistaService.Ciclista
-lista_tranca = []  # colocar a lista de trancas
+# lista_tranca = []  # colocar a lista de trancas
 alugueis_historico = []
 
 
 class AluguelService:
 
     @staticmethod
-    # integração aqui (pega a bicicleta aqui)
-    def verificar_bicicleta_alugada(id_ciclista):
+    # integração aqui
+    def verificar_bicicleta_alugada(id_ciclista):  # verificar aqui depois
         aluguel = None
         ciclista = None
         for ciclista in lista_ciclista:
@@ -23,14 +24,13 @@ class AluguelService:
         if ciclista is None:
             return False
 
-        # pega a informação de outro microsserviço
-        # bicicleta = Bicicleta_fake.bicicleta(
-         #   ciclista.aluguel.bicicleta, "boa", "3235", "2022", 100, "normal")
-        aluguel = None  # mudar aqui
-        if (aluguel is not None):
-            return None  # bicicleta
-        else:
+        id_bicicleta = ciclista.aluguel.bicicleta
+        bicicleta = requests.get(
+            url=f'https://va-de-bike-equipamentos-hbkxpua2za-uc.a.run.app/bicicleta/{id_bicicleta}')
+        if bicicleta.status_code == 404:
             return None
+        else:
+            return bicicleta.json
 
     @staticmethod
     def verificar_ciclista_aluguel(id_ciclista):
@@ -47,18 +47,15 @@ class AluguelService:
     def alugar_bicicleta(aluguel_dto):
         ciclista = None
         tranca = None
-        for tranca in lista_tranca:  # pegar a lista de tranca
-            if tranca == aluguel_dto.trancaInicio:
-                break
 
         if tranca is None:
             return "ErroTranca"
-
-        # verifica se tem bicicleta na tranca(integração) -- exceção aqui
-        # return  "BicicletaNaoExiste"
-        bicicleta = 0  # pega a bicicleta através do número da tranca
-
-        if (bicicleta.status.value == "em reparo"):
+        id_bicicleta = aluguel_dto.bicicleta
+        bicicleta = requests.get(
+            url=f'https://va-de-bike-equipamentos-hbkxpua2za-uc.a.run.app/bicicleta/{id_bicicleta}')
+        dados_bicicleta = bicicleta.json()
+        status_bicicleta = dados_bicicleta.get('status')
+        if (status_bicicleta == "em reparo"):
             return "BicicletaReparo"
 
         # usar o método de aluguel e da bicicleta
@@ -77,6 +74,7 @@ class AluguelService:
 
         # realizacao da cobranca
         ciclista.aluguel.cobranca = 10
+
         administradora = AluguelService.enviar_administradora_cartao(
             ciclista.aluguel.cobranca, ciclista.cartao)
         if administradora == False:
@@ -89,12 +87,12 @@ class AluguelService:
         aluguel.cartao = ciclista.cartao
         # bicicleta.status = muda o status da bicicleta - endpoint aqui
         # altera o status da tranca para "livre"
-        
+
         email_enviado = AluguelService.enviar_email_ciclista(ciclista.email)
         return ciclista.aluguel
 
     @staticmethod
-    def devolver_bicicleta(id_ciclista, id_tranca):  # integração aqui 
+    def devolver_bicicleta(id_ciclista, id_tranca):  # integração aqui
         aluguel = None
         for ciclista in lista_ciclista:
             if ciclista.id == id_ciclista:
@@ -115,17 +113,3 @@ class AluguelService:
         return aluguel
 
     # métodos da integração - vai ter os endpoints aqui??? -  do mesmo formato que os do Controller?
-
-    @staticmethod
-    def enviar_administradora_cartao(cobranca, cartao):
-
-        # chama o endpoint de externos
-        # faz um if de lógica sobre o endpoint
-        # registra na fila de cobranca, caso o pagamento não for aprovado
-        return True
-
-    @staticmethod
-    def enviar_email_ciclista(email):
-        # chama o endpoint de enviar email
-        # faz a parte do if - tem
-        return True

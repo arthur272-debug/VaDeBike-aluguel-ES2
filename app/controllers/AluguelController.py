@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from dto import AluguelDTO
 from services import AluguelService
+import requests
 
 aluguelBp = Blueprint('aluguelBp', __name__)
 invalido = "Dados Inválidos"
@@ -30,9 +31,14 @@ def consulta_bicicleta_alugada(id_ciclista):
         return nao_econtrado, 404
 
     if bicicleta is not None:
-        informacoes_bicicleta = {"id": bicicleta.id, "marca": bicicleta.marca,
-                                 "modelo": bicicleta.modelo, "ano": bicicleta.ano, "status": bicicleta.status}
-        return jsonify(informacoes_bicicleta), 200
+        dados_bicicleta = {
+            "id": dados_bicicleta.get('id'),
+            "marca": dados_bicicleta.get('marca'),
+            "modelo": dados_bicicleta.get('modelo'),
+            "ano": dados_bicicleta.get('ano'),
+            "status": dados_bicicleta.get('status')
+        }
+        return jsonify(dados_bicicleta), 200
     else:
         return "Vazio", 200
 
@@ -40,13 +46,25 @@ def consulta_bicicleta_alugada(id_ciclista):
 @aluguelBp.route('/aluguel', methods=['POST'])
 def realizar_aluguel():
     aluguel_dados = request.json
+
+    # validação dos dados
+    tranca = aluguel_dados["trancaInicio"]
+    tranca_valida = requests.get(
+        url=f'https://va-de-bike-equipamentos-hbkxpua2za-uc.a.run.app/tranca/{tranca}')
+    if tranca_valida.status_code == 404:
+        return "Dados inválidos (Tranca inválida)", 422
+
+    bicicleta_tranca = requests.get(
+        url=f'https://va-de-bike-equipamentos-hbkxpua2za-uc.a.run.app/tranca/{tranca_valida}/bicicleta')
+
+    if bicicleta_tranca.status_code == 404:
+        return "Dados inválidos(Bicicleta não encontrada)", 422
+    
     aluguel_dto = AluguelDTO.AluguelDto(
-        aluguel_dados["ciclista"], aluguel_dados["trancaInicio"], 0, 0, 0, 0, 0,None)
+        aluguel_dados["ciclista"], tranca_valida, bicicleta_tranca, 0, 0, 0, 0, None)
     aluguel = AluguelService.AluguelService.alugar_bicicleta(aluguel_dto)
 
-    if aluguel == "ErroTranca":
-        return "Dados Inválidos(Tranca Inválida)", 422
-    elif aluguel == "BicicletaNaoExiste":
+    if aluguel == "BicicletaNaoExiste":
         return "Dados Inválidos(Bicicleta Não existe)", 422
     elif aluguel == "BicicletaReparo":
         return "Dados Inválidos(Bicicleta não está em condições de uso)"

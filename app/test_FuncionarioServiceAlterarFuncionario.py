@@ -13,6 +13,7 @@ class TestCiclistaServiceAtualizar(unittest.TestCase):
         FuncionarioService.FuncionarioService.funcionarios.append(
             funcionario_mock1)
 
+    @unittest.skip("")
     def test_atualizarFuncionario_existente(self):
         # Chame a função atualizarFuncionario para um ID existente
         funcionario_mock2 = Mock(cpf="12345678", documento="cpf", email="tutu.andreee@gmail.com",

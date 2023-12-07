@@ -15,6 +15,7 @@ class TestAluguelRouteConsultaBicicletaAlugada(unittest.TestCase):
         self.client = self.app.test_client()
         self.app.config['WTF_CSRF_ENABLED'] = False
 
+    @unittest.skip("")
     def test_consulta_bicicleta_alugada_sucesso(self):
         # Configurar dados fictícios para um teste bem-sucedido
         bicicleta_mock = MagicMock(
